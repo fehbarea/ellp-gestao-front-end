@@ -1,9 +1,16 @@
 import CadVolForm from '../../components/CadVolForm';
+import Header from '../../components/Header';
+import NomePags from '../../components/NomePags';
+import style from './CadVolPage.module.css'
 
 function CadVolPage() {
     return (
-        <div>
-            <CadVolForm />
+        <div className={style.CadVolPage}>
+            <Header />
+            <article>
+                <NomePags nome='Cadastrar Voluntário' />
+                <CadVolForm />
+            </article>
         </div>
     );
 }

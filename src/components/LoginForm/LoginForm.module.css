@@ -76,8 +76,8 @@
     color: #000000;
     font-size: 1rem;
     -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.8s;
+    transition: ease-out 0.8s;
     cursor: pointer;
 
 }

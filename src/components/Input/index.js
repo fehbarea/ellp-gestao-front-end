@@ -1,10 +1,11 @@
 import style from './Input.module.css';
 
-function Input({ label, name, register, ...rest }) {
+function Input({ label, name, register, errors, validationRules, ...rest }) {
     return (
         <div className={style.Input} >
-            <label>{label}</label>
-            <input {...register(name)} {...rest}></input>
+            <label htmlFor={name} >{label}</label>
+            <input {...register(name, validationRules)} {...rest}></input>
+            {errors[name] && <span>{errors[name].message}</span>}
         </div>
     );
 }

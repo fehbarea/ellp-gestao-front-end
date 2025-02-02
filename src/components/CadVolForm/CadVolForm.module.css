@@ -1,6 +1,13 @@
 .RaTelCpf{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%
+}
+
+.cursoSituacao{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
 }

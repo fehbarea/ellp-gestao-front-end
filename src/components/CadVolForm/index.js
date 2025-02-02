@@ -50,30 +50,31 @@ function CadVolForm() {
                 validationRules={{ required: 'Campo Obrigatório' }}
                 register={register}
             />
-            <Select
-                label='Curso'
-                name='Curso'
-                register={register}
-                errors={errors}
-                options={[
-                    { value: 'engenharia de softwate', label: 'engenharia de softwate' },
-                    { value: 'analise e dev de sistemas', label: 'analise e dev de sistemas' },
-                    { value: 'computacoa', label: 'computacao' },
-                ]}
-                validationRules={{ required: 'Campo Obrigatório' }}
-            />
-            <Radio
-                label='SItuação'
-                name='Periodo'
-                register={register}
-                errors={errors}
-                options={[
-                    { value: 'Ativo', label: 'Ativo' },
-                    { value: 'Inativo', label: 'Inativo' }
-                ]}
-                validationRules={{ required: 'Campo Obrigatório' }}/>
-            
+            <section className={style.cursoSituacao}>
+                <Select
+                    label='Curso'
+                    name='Curso'
+                    register={register}
+                    errors={errors}
+                    options={[
+                        { value: 'engenharia de softwate', label: 'engenharia de softwate' },
+                        { value: 'analise e dev de sistemas', label: 'analise e dev de sistemas' },
+                        { value: 'computacoa', label: 'computacao' },
+                    ]}
+                    validationRules={{ required: 'Campo Obrigatório' }}
+                />
+                <Radio
+                    label='Situação'
+                    name='Periodo'
+                    register={register}
+                    errors={errors}
+                    options={[
+                        { value: 'Ativo', label: 'Ativo' },
+                        { value: 'Inativo', label: 'Inativo' }
+                    ]}
+                    validationRules={{ required: 'Campo Obrigatório' }} />
 
+            </section>
         </form>
     )
 }

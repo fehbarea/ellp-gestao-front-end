@@ -4,12 +4,12 @@ function Radio({ label, name, register, errors, options, validationRules, ...res
     return (
         <div className={style.Radio}>
             <label htmlFor={name} >{label}</label>
-            <span>
+            <span className={style.radioOptions}>
             {options.map((option) => (
-                <label key={option.value}>
+                <span>
                     <input type='radio' value={option.value} {...register(name, validationRules)} {...rest} />
-                    {option.label}
-                </label>
+                    <label htmlFor={option.value}>{option.label}</label>
+                </span>
             ))}
             </span>
             {errors[name] && <span>{errors[name].message}</span>}

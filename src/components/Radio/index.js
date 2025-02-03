@@ -12,7 +12,7 @@ function Radio({ label, name, register, errors, options, validationRules, ...res
                 </span>
             ))}
             </span>
-            {errors[name] && <span>{errors[name].message}</span>}
+            {errors[name] && <span className={style.errorMessage}>{errors[name].message}</span>}
         </div>
     );
 }

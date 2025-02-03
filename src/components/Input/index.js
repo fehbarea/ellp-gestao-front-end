@@ -5,7 +5,7 @@ function Input({ label, name, register, errors, validationRules, ...rest }) {
         <div className={style.Input} >
             <label htmlFor={name} >{label}</label>
             <input {...register(name, validationRules)} {...rest}></input>
-            {errors[name] && <span>{errors[name].message}</span>}
+            {errors[name] && <span className={style.errorMessage}>{errors[name].message}</span>}
         </div>
     );
 }

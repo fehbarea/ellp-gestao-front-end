@@ -9,7 +9,7 @@ function Select({label, name, register, errors, options, validationRules, ...res
                     <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
             </select>
-            {errors[name] && <span>{errors[name].message}</span>}
+            {errors[name] && <span className={style.errorMessage}>{errors[name].message}</span>}
         </div>
 
     );

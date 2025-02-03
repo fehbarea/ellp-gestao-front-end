@@ -4,6 +4,8 @@ import style from './CadVolForm.module.css'
 import Select from '../Select';
 import Radio from '../Radio';
 import Submit from '../Submit'
+import Button from '../Button'
+import ButtonLink from '../ButtonLink';
 
 function CadVolForm() {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -111,11 +113,16 @@ function CadVolForm() {
                 ]}
                 validationRules={{ required: 'Campo Obrigatório' }}
             />
-
+            <section className={style.buttons}>
             <Submit
                 label='Cadastrar'
                 handleSubmit={onSubmit}
             />
+            <ButtonLink 
+                to='/'
+                label='Lista De Voluntários'
+            />
+            </section>
         </form>
 
     )

@@ -1,16 +1,19 @@
-.submit{
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #002960 ;
     text-align: center;
     color: #E87722;
+    border-radius: 10px;
+    cursor: pointer;
     width: 10rem;
     height: 2.5rem;
     font-size: 1rem;
-    border-radius: 10px;
-    cursor: pointer;  
-    margin: 0.5%; 
+    margin: 0.5%;
 }
 
-.submit:hover{
+.button:hover{
     transform: scale(1.05);
     transition: transform 0.3s;
     box-shadow: 0 0 1px #002960 ;

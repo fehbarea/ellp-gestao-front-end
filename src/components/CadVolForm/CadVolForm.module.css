@@ -1,5 +1,3 @@
-
-
 .RaTelCpf{
     display: flex;
     flex-direction: row;
@@ -12,4 +10,14 @@
     flex-direction: row;
     justify-content: flex-start;
     width: 100%;
+}
+.buttons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    padding-left: 0.5%;
+    padding-block: 2%;
+    gap:1%
 }

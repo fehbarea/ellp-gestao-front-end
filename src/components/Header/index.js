@@ -10,7 +10,7 @@ function Header(){
         <nav>
             <Link to='/'>Atividades extras</Link>
             <Link to='/'>Alunos</Link>
-            <Link to='/'>Voluntários</Link>
+            <Link to='/cadastroVoluntarios'>Voluntários</Link>
             <Link to='/'>Presenças oficinas</Link>
 
         </nav>

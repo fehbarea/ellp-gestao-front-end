@@ -1,0 +1,19 @@
+.container{
+    height: 50vh;
+    width: 80vw
+}
+.customHeader{
+    
+}
+.customCell{
+    background-color: #D9D9D9;
+    border: 1px  solid #404040;
+    border-radius: 10px;
+    margin-right: 2px;
+    padding: 10px;
+}
+
+.selectedCell {
+    background-color: #4caf50 !important; /* Cor de fundo para células selecionadas */
+    color: white; /* Cor do texto para células selecionadas */
+}

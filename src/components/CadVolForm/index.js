@@ -8,7 +8,21 @@ import Button from '../Button'
 import ButtonLink from '../ButtonLink';
 
 function CadVolForm() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+
+        //valores da API
+        const defaultValues = {
+            Nome: 'João Silva',
+            RA: '123456',
+            Telefone: '1234567890',
+            CPF: '123.456.789-00',
+            Email: 'joao.silva@example.com',
+            Curso: 'engenharia de softwate',
+            situacao: 'Inativo',
+            Departamento: 'RH',
+            Função: 'Voluntário'
+        };
+
+    const { register, handleSubmit, formState: { errors } } = useForm({defaultValues});
 
     const onSubmit = (data) => {
         console.log(data);
@@ -119,7 +133,7 @@ function CadVolForm() {
                 handleSubmit={onSubmit}
             />
             <ButtonLink 
-                to='/'
+                to='/ListaDeVoluntarios'
                 label='Lista De Voluntários'
             />
             </section>

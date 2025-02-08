@@ -1,13 +1,14 @@
-import { DataGrid } from '@mui/x-data-grid';
-import style from './DataGrid.module.css'
+import { DataGrid, GridToolbar  } from '@mui/x-data-grid';
+import style from './DataGrid.module.css';
 import { useState } from 'react';
 
-function Datagrid({ rows, columns }) {
 
+function Datagrid({ rows, columns }) {
 
   return (
     <div className={style.container}>
       <DataGrid
+        className={style.datagrid}
         rows={rows}
         columns={columns.map((column) => ({
           ...column,
@@ -20,6 +21,7 @@ function Datagrid({ rows, columns }) {
         }}
         autoPageSize
         checkboxSelection={false}
+        components={{ Toolbar: GridToolbar }}
 
          />
     </div>

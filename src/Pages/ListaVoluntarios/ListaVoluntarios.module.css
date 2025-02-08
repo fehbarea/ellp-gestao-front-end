@@ -1,0 +1,16 @@
+.ListaVoluntarios{
+    height: 100vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+.botoes{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-block: 2%;
+    gap:1%
+
+}

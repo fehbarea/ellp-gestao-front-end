@@ -5,6 +5,7 @@ function Select({label, name, register, errors, options, validationRules, ...res
         <div className={style.Select} >
             <label htmlFor={name}>{label}</label>
             <select id={name} {...register(name, validationRules)} {...rest}>
+            <option value="">Selecione uma opção</option>
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>{option.label}</option>
                 ))}

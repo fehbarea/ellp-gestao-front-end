@@ -1,19 +1,29 @@
 .container{
-    height: 50vh;
-    width: 80vw
+    height: 65%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+}
+.datagrid{
+  background-color: #D9D9D990;
+
 }
 .customHeader{
     
 }
-.customCell{
+/* .customCell{
     background-color: #D9D9D9;
     border: 1px  solid #404040;
     border-radius: 10px;
     margin-right: 2px;
     padding: 10px;
-}
+} */
 
-.selectedCell {
-    background-color: #4caf50 !important; /* Cor de fundo para células selecionadas */
-    color: white; /* Cor do texto para células selecionadas */
-}
+.selectedRow {
+    background-color: black !important;
+  }
+  .selectedRow:hover {
+    background-color: deepskyblue !important;
+  }

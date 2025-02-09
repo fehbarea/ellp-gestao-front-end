@@ -53,8 +53,8 @@ function CadAtvExtraForm() {
                         handleSubmit={onSubmit}
                     />
                     <ButtonLink
-                        to='/ListaDeVoluntarios'
-                        label='Lista De Voluntários'
+                        to='/ListaDeAtividades'
+                        label='Lista de Atividades'
                     />
                     <ButtonLink
                         to='/'

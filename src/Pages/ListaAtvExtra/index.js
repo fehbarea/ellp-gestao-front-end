@@ -1,25 +1,31 @@
-import style from './ListaVoluntarios.module.css';
+import style from './ListaAtvExtra.module.css';
 import Datagrid from '../../components/DataGrid';
 import NomePags from '../../components/NomePags';
 import Header from '../../components/Header';
 import ButtonLink from '../../components/ButtonLink'
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-function ListaVoluntarios() {
+function ListaAtvExtra() {
 
-  const navigate = useNavigate();
-  
+    const navigate = useNavigate();
+
   const handleEdit = (id) => {
     console.log('Editando voluntário:', id);
-    navigate(`/CadastroVoluntarios/${id}`);
+    navigate(`/CadastroAtividadeExtra/${id}`);
+  };
+
+  const handleDelete = (id) => {
+    console.log('Deletando voluntário:', id);
+    // Lógica para deletar
   };
 
   const actionColumn = {
     field: 'actions', 
     headerName: 'Ações', 
-    width:80,
+    width:250,
     sortable: false,
     renderCell: (params) => (
       <div className={style.actionButtons}>
@@ -30,6 +36,14 @@ function ListaVoluntarios() {
         >
           <EditIcon />
         </IconButton>
+        <IconButton
+          onClick={() => handleDelete(params.row.id)}
+          color="error"
+          size="small"
+        >
+          <DeleteIcon />
+        </IconButton>
+        <ButtonLink className={style.botaoPresenca} to={`/PresencaAtividades/${params.row.id}`} label="Presenças"/>
 
       </div>
     ),
@@ -49,17 +63,17 @@ function ListaVoluntarios() {
   ];
 
   const columns = [
-    { field: 'RA', headerName: 'RA', width: 200 },
-    { field: 'Nome', headerName: 'Nome', width: 350 },
-    { field: 'Departamento', headerName: 'Departamento', width: 350 },
-    { field: 'Horas', headerName: 'Horas', width: 100 },
-    { field: 'Situacao', headerName: 'Situação', width: 200 },
+    { field: 'Nome', headerName: 'Nome', width: 200 },
+    { field: 'Data', headerName: 'Data', width: 350 },
+    { field: 'Horas', headerName: 'Horas', width: 350 },
     actionColumn
+
   ];
+
   return (
     <>
       <Header />
-      <section className={style.ListaVoluntarios}>
+      <section className={style.ListaAtvExtra}>
         <NomePags
           nome='Lista de Voluntários' />
         <Datagrid
@@ -67,7 +81,7 @@ function ListaVoluntarios() {
 
         <div className={style.botoes}>
           <ButtonLink
-            to='/CadastroVoluntarios'
+            to='/CadastroAtividadeExtra'
             label='Cadastrar' />
         </div>
       </section>
@@ -75,4 +89,4 @@ function ListaVoluntarios() {
   );
 };
 
-export default ListaVoluntarios;
+export default ListaAtvExtra;

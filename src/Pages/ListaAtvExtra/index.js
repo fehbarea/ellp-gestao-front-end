@@ -43,7 +43,7 @@ function ListaAtvExtra() {
         >
           <DeleteIcon />
         </IconButton>
-        <ButtonLink className={style.botaoPresenca} to={`/PresencaAtividades/${params.row.id}`} label="Presenças"/>
+        <ButtonLink className={style.botaoPresenca} to={`/GestaoDePresencaAtividadesExtras/${params.row.id}`} label="Presenças"/>
 
       </div>
     ),

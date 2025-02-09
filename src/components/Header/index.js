@@ -8,7 +8,7 @@ function Header(){
             <img src='/images/Logotipo (Transparente) (1).png' alt='Logo do ELLP'/>      
         </Link>
         <nav>
-            <Link to='/'>Atividades extras</Link>
+            <Link to='/CadastroAtividadeExtra'>Atividades extras</Link>
             <Link to='/'>Alunos</Link>
             <Link to='/cadastroVoluntarios'>Voluntários</Link>
             <Link to='/'>Presenças oficinas</Link>

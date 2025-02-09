@@ -11,10 +11,11 @@
     font-size: 1rem;
     text-decoration: none;
     overflow: wrap;
+    border: none;
 }
 
 .buttonLink:hover{
     transform: scale(1.05);
     transition: transform 0.5s;
-    box-shadow: 0 0 2px #002960;
+    box-shadow: 0 0 1px #002960;
 } 

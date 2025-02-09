@@ -7,11 +7,11 @@
     font-size: 1rem;
     border-radius: 10px;
     cursor: pointer;  
-    margin: 0.5%; 
+    border: none;
 }
 
 .submit:hover{
     transform: scale(1.05);
-    transition: transform 0.3s;
+    transition: transform 0.5s;
     box-shadow: 0 0 1px #002960 ;
 }

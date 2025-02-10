@@ -6,6 +6,7 @@ import ListaVoluntarios from './Pages/ListaVoluntarios'
 import CadAtvExtra from "./Pages/CadAtvExtra";
 import ListaAtvExtra from "./Pages/ListaAtvExtra";
 import GestaoPresencaAtvExtra from "./Pages/GestaoPresencaAtvExtra";
+import ListaOficina from "./Pages/ListaOficina";
 
 function AppRoutes(){
     return(
@@ -17,6 +18,7 @@ function AppRoutes(){
                 <Route path='/CadastroAtividadeExtra' element={<CadAtvExtra/>} />
                 <Route path='/GestaoDePresencaAtividadesExtras/:id' element={<GestaoPresencaAtvExtra/>} />
                 <Route path='/ListaDeAtividades' element={<ListaAtvExtra/>} />
+                <Route path='/ListaDeOficinas' element={<ListaOficina/>} />
 
                 <Route path='*' element={<h1>Not found</h1>} />
             </Routes>

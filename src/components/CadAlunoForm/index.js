@@ -428,7 +428,7 @@ function CadAlunoForm() {
                     handleSubmit={onSubmit}
                 />
                 <ButtonLink
-                    to='/'
+                    to='/ListaAlunos'
                     label='Lista De Alunos'
                 />
             </section>

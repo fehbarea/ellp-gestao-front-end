@@ -2,7 +2,7 @@ import { DataGrid, GridToolbar, GridToolbarContainer } from '@mui/x-data-grid';
 import style from './DataGrid.module.css';
 import { useState } from 'react';
 
-function Datagrid({ rows, columns }) {
+function Datagrid({ rows, columns, toolbar = GridToolbar, className, ...props }) {
 
   const [selectedRow, setSelectedRow] = useState(null);
 
@@ -40,7 +40,7 @@ function Datagrid({ rows, columns }) {
   };
 
   return (
-    <div className={style.container}>
+    <div className={`${style.container} ${className}`}>
       <DataGrid
         className={style.datagrid}
         rows={rows}
@@ -52,7 +52,7 @@ function Datagrid({ rows, columns }) {
         autoPageSize
         checkboxSelection={false}
         slots={{
-          toolbar: GridToolbar,
+          toolbar: toolbar,
         }}
         slotProps={{
           toolbar: {
@@ -66,6 +66,7 @@ function Datagrid({ rows, columns }) {
         onRowClick={handleRowClick}
         rowSelectionModel={selectedRow ? [selectedRow] : []}
         localeText={localeText}
+        {...props}
       />
     </div>
   );

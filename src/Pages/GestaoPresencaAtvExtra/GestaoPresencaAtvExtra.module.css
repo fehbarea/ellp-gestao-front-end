@@ -1,0 +1,17 @@
+.GestaoPresencaAtvExtra section{
+    padding-left: 5vw;
+    padding-right: 5vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.datagrid{
+    height: auto !important;
+    width: 30%;
+    align-self: center;
+}
+
+.GestaoPresencaAtvExtra Button{
+    margin-block: 2%;
+}
+ 

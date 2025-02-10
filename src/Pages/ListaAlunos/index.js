@@ -4,7 +4,6 @@ import NomePags from '../../components/NomePags';
 import Header from '../../components/Header';
 import ButtonLink from '../../components/ButtonLink'
 import EditIcon from '@mui/icons-material/Edit';
-import InputPesquisa from '../../components/InputPesquisa';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -59,8 +58,6 @@ function ListaAlunos() {
             <section className={style.ListaAlunos}>
                 <NomePags
                     nome='Lista de Alunos' />
-
-                <InputPesquisa />
 
                 <Datagrid
                     rows={rows} columns={columns} />

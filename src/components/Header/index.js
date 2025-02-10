@@ -9,7 +9,7 @@ function Header(){
         </Link>
         <nav>
             <Link to='/CadastroAtividadeExtra'>Atividades extras</Link>
-            <Link to='/'>Alunos</Link>
+            <Link to='/CadastroAlunos'>Alunos</Link>
             <Link to='/cadastroVoluntarios'>Voluntários</Link>
             <Link to='/'>Presenças oficinas</Link>
 

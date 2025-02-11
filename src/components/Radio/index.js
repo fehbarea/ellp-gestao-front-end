@@ -1,8 +1,8 @@
 import style from './Radio.module.css';
 
-function Radio({ label, name, register, errors, options, validationRules, ...rest }) {
+function Radio({ label, name, register, errors, options, validationRules, className, ...rest }) {
     return (
-        <div className={style.Radio}>
+        <div className={`${style.Radio} ${className}`} >
             <label htmlFor={name} >{label}</label>
             <span className={style.radioOptions}>
             {options.map((option) => (

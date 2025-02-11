@@ -1,9 +1,9 @@
 import style from './Submit.module.css'
 
-function Submit({ label, handleSubmit }) {
+function Submit({ label, handleSubmit, ...props }) {
     return (
         <span>
-            <button className={style.submit} handleSubmit={handleSubmit} >{label}</button>
+            <button className={style.submit} handleSubmit={handleSubmit} {...props} >{label}</button>
         </span>
     );
 }

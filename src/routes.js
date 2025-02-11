@@ -10,6 +10,7 @@ import ListaOficina from "./Pages/ListaOficina";
 import CadAlunoPage from "./Pages/CadAlunoPage";
 import ListaAlunos from "./Pages/ListaAlunos";
 import CadastroOficina from "./Pages/CadastroOficina";
+import LideresDep from "./Pages/PrivLiderPage";
 
 function AppRoutes(){
     return(
@@ -25,6 +26,7 @@ function AppRoutes(){
                 <Route path='/CadastroOficina' element={<CadastroOficina/>} />
                 <Route path='/CadastroAlunos' element={<CadAlunoPage/>} />
                 <Route path='/ListaAlunos' element={<ListaAlunos/>} />
+                <Route path='/LideresDep' element={<LideresDep/>} />
 
                 <Route path='*' element={<h1>Not found</h1>} />
             </Routes>

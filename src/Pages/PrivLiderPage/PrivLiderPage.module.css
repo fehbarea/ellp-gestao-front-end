@@ -1,0 +1,40 @@
+.PrivLiderPage {
+    height: 100vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+.tituloDep {
+    font-size: 1.2rem;
+    color: #E87722;
+    font-family: "Montserrat";
+    padding-top: 1.2vw;
+}
+
+.sectionLider {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.sectionLider20 {
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    gap: 0.5vw;
+    align-items: center;
+    padding-left: 0.3vw;
+}
+
+.botoes{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-left: 0.5%;
+    padding-bottom: 1%;
+    gap:1%
+}

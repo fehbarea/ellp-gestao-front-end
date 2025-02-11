@@ -12,6 +12,7 @@ import ListaAlunos from "./Pages/ListaAlunos";
 import CadastroOficina from "./Pages/CadastroOficina";
 import AcessoNegado from './Pages/AcessoNegado';
 import GestaoPresencaOficina from "./Pages/GestaoPresencaOficina";
+import LideresDep from "./Pages/PrivLiderPage";
 
 function AppRoutes(){
     return(
@@ -33,6 +34,7 @@ function AppRoutes(){
                 <Route path='/PresencaOficinas/:id' element={<GestaoPresencaOficina/>} />
                 <Route path='/AcessoNegado' element={<AcessoNegado/>} />
 
+                <Route path='/LideresDep' element={<LideresDep/>} />
 
                 <Route path='*' element={<h1>Not found</h1>} />
             </Routes>

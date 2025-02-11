@@ -56,7 +56,7 @@ function CadAlunoForm() {
                     validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                     register={register}
                 />
-                <section className={style.sectionForm20}>
+                <section className={style.sectionForm25}>
                     <Input
                         label='Idade'
                         name='Idade'
@@ -81,7 +81,7 @@ function CadAlunoForm() {
                     validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                     register={register}
                 />
-                <section className={style.sectionForm20}>
+                <section className={style.sectionForm25}>
                     <Input
                         label='CPF'
                         name='CPFAluno'
@@ -98,7 +98,7 @@ function CadAlunoForm() {
                     />
                 </section>
             </section>
-            <section className={style.sectionForm20}>
+            <section className={style.sectionForm25}>
                 <Select
                     label='Necessidades especiais'
                     name='NecessidadesEspeciais'
@@ -170,7 +170,7 @@ function CadAlunoForm() {
                     }}
                     register={register}
                 />
-                <section className={style.sectionForm20}>
+                <section className={style.sectionForm25}>
                     <Select
                         label='Parentalidade'
                         name='ParentalidadeResponsavel1'
@@ -226,7 +226,7 @@ function CadAlunoForm() {
                     errors={errors}
                     register={register}
                 />
-                <section className={style.sectionForm20}>
+                <section className={style.sectionForm25}>
                     <Select
                         label='Parentalidade'
                         name='ParentalidadeResponsavel2'
@@ -428,7 +428,7 @@ function CadAlunoForm() {
                     handleSubmit={onSubmit}
                 />
                 <ButtonLink
-                    to='/'
+                    to='/ListaAlunos'
                     label='Lista De Alunos'
                 />
             </section>

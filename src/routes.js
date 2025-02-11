@@ -8,6 +8,7 @@ import ListaAtvExtra from "./Pages/ListaAtvExtra";
 import GestaoPresencaAtvExtra from "./Pages/GestaoPresencaAtvExtra";
 import ListaOficina from "./Pages/ListaOficina";
 import CadAlunoPage from "./Pages/CadAlunoPage";
+import ListaAlunos from "./Pages/ListaAlunos";
 import CadastroOficina from "./Pages/CadastroOficina";
 
 function AppRoutes(){
@@ -23,6 +24,7 @@ function AppRoutes(){
                 <Route path='/ListaDeOficinas' element={<ListaOficina/>} />
                 <Route path='/CadastroOficina' element={<CadastroOficina/>} />
                 <Route path='/CadastroAlunos' element={<CadAlunoPage/>} />
+                <Route path='/ListaAlunos' element={<ListaAlunos/>} />
 
                 <Route path='*' element={<h1>Not found</h1>} />
             </Routes>

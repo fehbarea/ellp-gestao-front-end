@@ -14,3 +14,15 @@
     gap:1%
 
 }
+.botaoPresenca {
+    background-color: #002960;
+    width: 40%;
+    height: 30px;
+    min-width: 50px;
+    margin-block: 6px;
+}
+.actionButtons {
+    display: flex;
+    gap: 10px; /* Dá um espaço entre os botões */
+    align-items: center;
+  }

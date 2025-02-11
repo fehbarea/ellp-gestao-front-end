@@ -76,7 +76,7 @@ function ListaAtvExtra() {
       <Header />
       <section className={style.ListaAtvExtra}>
         <NomePags
-          nome='Lista de Voluntários' />
+          nome='Lista de Atividades Extras' />
         <Datagrid
           rows={rows} columns={columns} />
 

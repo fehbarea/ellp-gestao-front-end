@@ -10,27 +10,32 @@ import { useNavigate } from 'react-router-dom';
 function ListaOficina() {
 
   const navigate = useNavigate();
-  
+
   const handleEdit = (id) => {
 
     //navigate(`/CadastroVoluntarios/${id}`);
   };
 
   const actionColumn = {
-    field: 'actions', 
-    headerName: 'Ações', 
-    width:80,
+    
+    field: 'actions',
+    headerName: 'Ações',
+    width: 250,
     sortable: false,
     renderCell: (params) => (
       <div className={style.actionButtons}>
-        <IconButton 
+        <IconButton
           onClick={() => handleEdit(params.row.id)}
           color="primary"
           size="small"
         >
           <EditIcon />
         </IconButton>
-
+        <ButtonLink
+        className={style.botaoPresenca}
+          to={`/PresencaOficinas/${params.row.id}`}
+          label="Presenças"
+        />
       </div>
     ),
   };

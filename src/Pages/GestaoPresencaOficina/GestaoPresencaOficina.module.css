@@ -1,0 +1,19 @@
+.GestaoPresencaOficina section{
+    padding-left: 5vw;
+    padding-right: 5vw;
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.datagrid{
+    height: auto !important;
+    width: 30%;
+    align-self: center;
+    min-width: 300px;
+}
+
+.GestaoPresencaOficina Button{
+    margin-block: 2%;
+}
+ 

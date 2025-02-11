@@ -9,6 +9,7 @@ import Datagrid from '../../components/DataGrid';
 import ToggleButton from '@mui/material/ToggleButton';
 import AddBox from '@mui/icons-material/AddBox';
 import { Scale } from '@mui/icons-material';
+import ButtonLink from '../ButtonLink';
 
 function FormCadastroOficina() {
 
@@ -139,7 +140,7 @@ function FormCadastroOficina() {
                 <span>
                     <h4>Adicionar Alunos</h4>
                     <Datagrid
-                        rows={rows} columns={columnsAddAluno}        
+                        rows={rows} columns={columnsAddAluno}
                         disableColumnMenu
                         disableDensitySelector
                         disableColumnSelector
@@ -164,6 +165,14 @@ function FormCadastroOficina() {
                     label='Cadastrar'
                     onClick={handleSubmit(onSubmit)}
                     type="button"
+                />
+                <ButtonLink
+                    to='/ListaDeOficinas'
+                    label='Lista de Oficinas'
+                />
+                <ButtonLink
+                    to='/'
+                    label='Cancelar'
                 />
             </div>
         </section>

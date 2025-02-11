@@ -11,7 +11,7 @@ function Header(){
             <Link to='/CadastroAtividadeExtra'>Atividades extras</Link>
             <Link to='/CadastroAlunos'>Alunos</Link>
             <Link to='/cadastroVoluntarios'>Voluntários</Link>
-            <Link to='/CadastroOficina'>Presenças oficinas</Link>
+            <Link to='/ListaDeOficinas'>Oficinas</Link>
 
         </nav>
     </header>

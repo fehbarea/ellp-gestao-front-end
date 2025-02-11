@@ -13,12 +13,17 @@ import CadastroOficina from "./Pages/CadastroOficina";
 import AcessoNegado from './Pages/AcessoNegado';
 import GestaoPresencaOficina from "./Pages/GestaoPresencaOficina";
 import LideresDep from "./Pages/PrivLiderPage";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function AppRoutes(){
     return(
         <BrowserRouter>
             <Routes>
-                <Route path='/' element={<Home/>}/>
+                <Route path='Login' element={<Login/>}/>
+
+                <Route element={<ProtectedRoute/>}>
+                
+                <Route path='/Home' element={<Home/>}/>
                 <Route path='/CadastroVoluntarios' element={<CadVolPage/>} />
                 <Route path='/CadastroVoluntarios/:id' element={<CadVolPage/>} />
                 <Route path='/ListaDeVoluntarios' element={<ListaVoluntarios/>} />
@@ -35,6 +40,7 @@ function AppRoutes(){
                 <Route path='/AcessoNegado' element={<AcessoNegado/>} />
 
                 <Route path='/LideresDep' element={<LideresDep/>} />
+                </Route>
 
                 <Route path='*' element={<h1>Not found</h1>} />
             </Routes>

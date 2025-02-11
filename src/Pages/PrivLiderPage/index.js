@@ -3,34 +3,42 @@ import NomePags from '../../components/NomePags';
 import Input from '../../components/Input';
 import { useForm } from 'react-hook-form';
 import Header from '../../components/Header';
-import ButtonLink from '../../components/ButtonLink'
+import Button from '../../components/Button';
 
 function PrivLiderPage() {
 
     const defaultValues = {
         NomeAdministracao: 'Guto',
-        RAAdministracao: '123456',
+        RAAdministracao: '1234567',
         EmailAdministracao: 'guto@gmail.com',
-        TelefoneAdministracao: '(11)912345678',
+        TelefoneAdministracao: '(11) 91234-5678',
 
         NomeAprendizagem: 'Pedro',
-        RAAprendizagem: '1234567',
+        RAAprendizagem: '2345678',
         EmailAprendizagem: 'pedro@gmail.com',
-        TelefoneAprendizagem: '(22)912345678',
+        TelefoneAprendizagem: '(22) 91234-5678',
 
         NomeGestaoPes: 'Gisele',
-        RAGestaoPes: '12345678',
+        RAGestaoPes: '3456789',
         EmailGestaoPes: 'gisele@gmail.com',
-        TelefoneGestaoPes: '(33)912345678',
+        TelefoneGestaoPes: '(33) 91234-5678',
 
         NomeMarketing: 'Carlos',
-        RAMarketing: '12345679',
+        RAMarketing: '4567890',
         EmailMarketing: 'carlos@gmail.com',
-        TelefoneMarketing: '(44)912345678',
+        TelefoneMarketing: '(44) 91234-5678',
     }
 
     const { register, formState: { errors } } = useForm({ defaultValues })
 
+    const confirmarAltLider = () => {
+        if (window.confirm("Tem certeza?")) {
+          alert("Você confirmou!");
+        } else {
+          alert("Você cancelou.");
+        }
+    };
+      
     return (
         <>
             <Header />
@@ -72,12 +80,12 @@ function PrivLiderPage() {
                     </section>
                 </section>
                 <div className={style.botoes}>
-                    <ButtonLink
-                        to='/ListaVoluntários'
-                        label='Alterar Líder' />
-                    <ButtonLink
-                        to='/'
-                        label='Revogar Privilégio' />
+                    <Button
+                        label='Alterar Líder' 
+                        onClick={confirmarAltLider} />
+                    <Button
+                        label='Revogar Privilégio'
+                        onClick={confirmarAltLider} />
                 </div>
 
 
@@ -115,12 +123,12 @@ function PrivLiderPage() {
                     </section>
                 </section>
                 <div className={style.botoes}>
-                    <ButtonLink
-                        to='/ListaVoluntários'
-                        label='Alterar Líder' />
-                    <ButtonLink
-                        to='/'
-                        label='Revogar Privilégio' />
+                    <Button
+                        label='Alterar Líder'
+                        onClick={confirmarAltLider} />
+                    <Button
+                        label='Revogar Privilégio'
+                        onClick={confirmarAltLider} />
                 </div>
 
 
@@ -158,12 +166,12 @@ function PrivLiderPage() {
                     </section>
                 </section>
                 <div className={style.botoes}>
-                    <ButtonLink
-                        to='/ListaVoluntários'
-                        label='Alterar Líder' />
-                    <ButtonLink
-                        to='/'
-                        label='Revogar Privilégio' />
+                    <Button
+                        label='Alterar Líder'
+                        onClick={confirmarAltLider} />
+                    <Button
+                        label='Revogar Privilégio' 
+                        onClick={confirmarAltLider} />
                 </div>
 
 
@@ -201,18 +209,15 @@ function PrivLiderPage() {
                     </section>
                 </section>
                 <div className={style.botoes}>
-                    <ButtonLink
-                        to='/ListaVoluntários'
-                        label='Alterar Líder' />
-                    <ButtonLink
-                        to='/'
-                        label='Revogar Privilégio' />
+                    <Button
+                        label='Alterar Líder'
+                        onClick={confirmarAltLider} />
+                    <Button
+                        label='Revogar Privilégio'
+                        onClick={confirmarAltLider} />
                 </div>
-
             </div >
         </>
-
-
     )
 }
 

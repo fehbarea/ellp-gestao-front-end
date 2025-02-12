@@ -8,10 +8,12 @@ import ButtonLink from '../ButtonLink';
 import { cadastrarVolunario, getCargos, getDepartamentos, getVoluntario, updateVoluntario } from '../../Services/voluntariosService'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PopUp from '../../components/PopUp';
 
 function CadVolForm() {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [mensagemPopUp, setMensagemPopUp] = useState(null);
     const [error, setError] = useState('');
     const [cargoOptions, setCargoOptions] = useState([]);
     const [DepartamentosOptions, setDepartamentoptions] = useState([]);
@@ -52,8 +54,10 @@ function CadVolForm() {
             await cadastrarVolunario(data);
             console.log(data)
         }
+            setMensagemPopUp({ titulo: 'Cadastro de Voluntário', texto: 'Voluntário cadastrado com sucesso!' });
         }
         catch (err) {
+            setMensagemPopUp({ titulo: 'Cadastro de Voluntário', texto: 'Erro no cadastro de voluntário!' });
             setError(err.message)
         }
     }
@@ -79,6 +83,7 @@ function CadVolForm() {
 
     return (
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+            {mensagemPopUp && <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />}
             <Input
                 label='Nome'
                 name='nome'

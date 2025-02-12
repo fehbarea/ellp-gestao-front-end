@@ -6,9 +6,11 @@ import ButtonLink from '../ButtonLink';
 import { cadastrarAtividadeExtra, getAtividade, updateAtividade } from '../../Services/AtividadeExtraService'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PopUp from '../../components/PopUp';
 
 function CadAtvExtraForm() {
 
+    const [mensagemPopUp, setMensagemPopUp] = useState(null);
     const [error, setError] = useState('');
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { id } = useParams();
@@ -23,8 +25,10 @@ function CadAtvExtraForm() {
         }else{
             await updateAtividade(id, data);
         }
+            setMensagemPopUp({ titulo: 'Cadastro de Atividade', texto: 'Atividade cadastrada com sucesso!' });
         }
         catch (err) {
+            setMensagemPopUp({ titulo: 'Cadastro de Atividade', texto: 'Erro no cadastro de atividade!' });
             setError(err.message)
         }
     
@@ -53,6 +57,7 @@ function CadAtvExtraForm() {
     return (
         <>
             <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+                {mensagemPopUp && <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />}
                 <Input
                     label='Nome'
                     name='nome'

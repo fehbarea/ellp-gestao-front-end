@@ -8,10 +8,11 @@ import Submit from "../Submit";
 import { useEffect, useState } from "react";
 import { getQuestionarioSocioEco, cadastrarAluno, getAluno, getResponsaveisAluno, getRespostasAluno, updateAluno, cadastrarResponsavelAluno } from "../../Services/alunosService";
 import { useParams } from "react-router-dom";
+import PopUp from '../../components/PopUp';
 
 function CadAlunoForm() {
 
-
+    const [mensagemPopUp, setMensagemPopUp] = useState(null);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [questoesSocEco, setQuestoeSocEco] = useState([]);
     const { id } = useParams();
@@ -100,14 +101,17 @@ function CadAlunoForm() {
                 }
                 console.log(alunoData);
             }
+            setMensagemPopUp({ titulo: 'Cadastro de Aluno', texto: 'Aluno cadastrado com sucesso!' });
         }
         catch (err) {
+            setMensagemPopUp({ titulo: 'Cadastro de Aluno', texto: 'Erro no cadastro de aluno!' });
             //setError(err.message)
         }
     }
 
     return (
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+            {mensagemPopUp && <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />}
 
             <h5 className={style.titulo}>Dados do aluno</h5>
             <section className={style.sectionForm}>

@@ -6,6 +6,6 @@ export async function getAlunos() {
         return response.data;
     } catch (error) {
         console.error('Erro ao carregar alunos:', error);
-        throw new Error('Erro ao carregar a página');
+        return [];
     }
 }

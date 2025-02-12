@@ -42,7 +42,7 @@ function ListaAlunos() {
     useEffect(() => {
         const getAlu = async () => {
             try {
-                const data = getAlunos();
+                const data = await getAlunos();
                 setAlunos(data);
             }
             catch(err) {

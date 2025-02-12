@@ -25,12 +25,11 @@ function FormCadastroOficina() {
 
     const onSubmit = async (data) => {
         try {
-            const oficinaData = {
-                ...data,
-                alunos: AlunosAdicionados.map(aluno => aluno.id)
-            };
-
-            await cadastrarOficina(oficinaData);
+            //alunos: AlunosAdicionados.map(aluno => aluno.id)
+            data.ativo = data.ativo === 'true';
+            console.log(data);
+            const response = await cadastrarOficina(data);
+            console.log(response);
             setMensagemPopUp({ titulo: 'Cadastro de Oficina', texto: 'Oficina cadastrada com sucesso!' });
             setAlunosAdicionados([]);
             reset();
@@ -95,7 +94,7 @@ function FormCadastroOficina() {
                 <section>
                     <Input
                         label='Nome'
-                        name='Nome'
+                        name='nome'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                         register={register}
@@ -103,7 +102,7 @@ function FormCadastroOficina() {
                     />
                     <Input
                         label='Ano'
-                        name='Ano'
+                        name='ano'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório', minLength: { value: 4, message: 'Exatamente 4 caracteres' }, maxLength: { value: 4, message: 'Exatamente 4 caracteres' } }}
                         register={register}
@@ -112,7 +111,7 @@ function FormCadastroOficina() {
                     />
                     <Input
                         label='Período'
-                        name='Periodo'
+                        name='periodo'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório', maxLength: { value: 2, message: 'Máximo de 2 caracteres' } }}
                         register={register}
@@ -123,7 +122,7 @@ function FormCadastroOficina() {
                 <section className={style.NomeAnoPeriodo}>
                     <Select
                         label='Professor'
-                        name='Professor'
+                        name='professor'
                         register={register}
                         errors={errors}
                         options={voluntarios}
@@ -132,7 +131,7 @@ function FormCadastroOficina() {
                     />
                     <Select
                         label='Turno'
-                        name='Turno'
+                        name='turno'
                         register={register}
                         errors={errors}
                         options={[
@@ -145,12 +144,12 @@ function FormCadastroOficina() {
                     />
                     <Radio
                         label='Situação'
-                        name='situacao'
+                        name='ativo'
                         register={register}
                         errors={errors}
                         options={[
-                            { value: 'Ativo', label: 'Ativo' },
-                            { value: 'Inativo', label: 'Inativo' }
+                            { value: 'true', label: 'Ativo' },
+                            { value: 'false', label: 'Inativo' }
                         ]}
                         validationRules={{ required: 'Campo Obrigatório' }}
                         className={style.TurnoSit}

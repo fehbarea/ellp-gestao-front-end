@@ -3,7 +3,8 @@ import api from './configAxios'
 export async function cadastrarOficina(data) {
 
   try {
-    await api.post('/oficinas', data)
+    const result = await api.post('/oficinas', data)
+    return result.data;
 
   } catch (error) {
     console.error('Erro ao cadastrar oficina:', error)
@@ -18,6 +19,8 @@ export async function cadastrarOficina(data) {
     }
   }
 }
+
+
 
 export async function getOficinas() {
   try {

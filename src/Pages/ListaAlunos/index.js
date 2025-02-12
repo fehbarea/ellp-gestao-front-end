@@ -42,8 +42,9 @@ function ListaAlunos() {
     useEffect(() => {
         const getAlu = async () => {
             try {
-                const data = getAlunos();
+                const data = await getAlunos();
                 setAlunos(data);
+                console.log(data)
             }
             catch(err) {
                 setError (err.message);

@@ -50,7 +50,7 @@ function CadVolForm() {
                 await updateVoluntario(id, data);
             } 
             else {
-            await cadastrarVolunario(data)
+            await cadastrarVolunario(data);
             console.log(data)
         }
         }

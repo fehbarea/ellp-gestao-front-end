@@ -5,6 +5,9 @@ import Radio from "../Radio";
 import Select from "../Select";
 import ButtonLink from "../ButtonLink";
 import Submit from "../Submit";
+import { useEffect, useState } from "react";
+import { getQuestionarioSocioEco, cadastrarAluno, getAluno, getResponsaveisAluno, getRespostasAluno, updateAluno } from "../../Services/alunosService";
+import { useParams } from "react-router-dom";
 
 function CadAlunoForm() {
 
@@ -38,10 +41,54 @@ function CadAlunoForm() {
         VeiculoProprio: 'Sim',
     };
 
-    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues })
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues });
+    const [questoesSocEco, setQuestoesocEco] = useState([]);
+    const { id } = useParams();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    useEffect(() => {
+        const getQuestoes = async () => {
+            try {
+                const data = await getQuestionarioSocioEco();
+                setQuestoesocEco(data);
+            }
+            catch (err) {
+                console.log(err);
+            }
+
+            if(id){
+                try {
+                    const dataAluno = await getAluno(id);
+                    const dataResponsaveis = await getResponsaveisAluno(id);
+                    const dataRespostas = await getRespostasAluno(id);
+                    console.log({...dataAluno, ...dataResponsaveis, ...dataRespostas})
+                    reset({...dataAluno, ...dataResponsaveis, ...dataRespostas});
+                }
+                catch (err) {
+                    console.log(err);
+                }
+    
+            }
+        }
+        getQuestoes();
+    },
+        [])
+
+    const onSubmit = async (data) => {
+        try {
+            const [year, month, day] = data.data_nascimento.split("-");
+            data.data_atividade = `${day}/${month}/${year}`;
+            if (id) {
+                await updateAluno(id, data);
+            }
+            else {
+
+                await cadastrarAluno(data)
+                console.log(data)
+            }
+        }
+        catch (err) {
+            //setError(err.message)
+        }
     }
 
     return (
@@ -51,22 +98,23 @@ function CadAlunoForm() {
             <section className={style.sectionForm}>
                 <Input
                     label='Nome'
-                    name='Nome'
+                    name='nome'
                     errors={errors}
                     validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                     register={register}
                 />
                 <section className={style.sectionForm25}>
                     <Input
-                        label='Idade'
-                        name='Idade'
+                        label='Data Nascimento'
+                        name='data_nascimento'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório' }}
                         register={register}
+                        type='date'
                     />
                     <Input
                         label='Ano escolar'
-                        name='AnoEscolar'
+                        name='ano_escolar'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório' }}
                         register={register}
@@ -76,7 +124,7 @@ function CadAlunoForm() {
             <section className={style.sectionForm}>
                 <Input
                     label='Escola'
-                    name='Escola'
+                    name='escola'
                     errors={errors}
                     validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                     register={register}
@@ -84,7 +132,7 @@ function CadAlunoForm() {
                 <section className={style.sectionForm25}>
                     <Input
                         label='CPF'
-                        name='CPFAluno'
+                        name='cpf'
                         errors={errors}
                         validationRules={{
                             required: 'Campo Obrigatório',
@@ -112,12 +160,12 @@ function CadAlunoForm() {
                 />
                 <Radio
                     label='Situação'
-                    name='situacao'
+                    name='ativo'
                     register={register}
                     errors={errors}
                     options={[
-                        { value: 'Ativo', label: 'Ativo' },
-                        { value: 'Inativo', label: 'Inativo' }
+                        { value: 'true', label: 'Ativo' },
+                        { value: 'false', label: 'Inativo' }
                     ]}
                     validationRules={{ required: 'Campo Obrigatório' }} />
             </section>
@@ -400,17 +448,7 @@ function CadAlunoForm() {
                 />
             </section>
             <section className={style.sectionForm50}>
-                <Select
-                    label='A família possui veículo próprio?'
-                    name='VeiculoProprio'
-                    register={register}
-                    errors={errors}
-                    options={[
-                        { value: 'Sim', label: 'Sim' },
-                        { value: 'Não', label: 'Não' },
-                    ]}
-                    validationRules={{ required: 'Campo Obrigatório' }}
-                />
+
             </section>
 
             <section className={style.observacao}>
@@ -424,7 +462,7 @@ function CadAlunoForm() {
 
             <section className={style.buttons}>
                 <Submit
-                    label='Cadastrar'
+                    label={id ? 'Atualizar' : 'Cadastrar'}
                     handleSubmit={onSubmit}
                 />
                 <ButtonLink

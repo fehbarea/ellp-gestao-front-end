@@ -3,7 +3,7 @@ import api from './configAxios'
 export async function cadastrarOficina(data) {
 
   try {
-    await api.post('/oficina', data)
+    await api.post('/oficinas', data)
 
   } catch (error) {
     console.error('Erro ao cadastrar oficina:', error)
@@ -51,7 +51,7 @@ export async function getAulasOficina(id) {
 
 export async function updateOficina(id, data) {
   try {
-    await api.put(`/oficina/${id}`, data)
+    await api.put(`/oficinas/${id}`, data)
   } catch (error) {
     console.error('Erro ao atualizar oficina:', error)
     if (error.response) {

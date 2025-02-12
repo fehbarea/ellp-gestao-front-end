@@ -28,6 +28,7 @@ function AppRoutes(){
                 <Route path='/CadastroVoluntarios/:id' element={<CadVolPage/>} />
                 <Route path='/ListaDeVoluntarios' element={<ListaVoluntarios/>} />
                 <Route path='/CadastroAtividadeExtra' element={<CadAtvExtra/>} />
+                <Route path='/CadastroAtividadeExtra/:id' element={<CadAtvExtra/>} />
                 <Route path='/GestaoDePresencaAtividadesExtras/:id' element={<GestaoPresencaAtvExtra/>} />
                 <Route path='/ListaDeAtividades' element={<ListaAtvExtra/>} />
                 <Route path='/ListaDeOficinas' element={<ListaOficina/>} />

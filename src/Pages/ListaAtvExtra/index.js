@@ -8,50 +8,62 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
-import { getAtividadesExtras } from '../../Services/AtividadeExtraService';
+import { getAtividadesExtras, deleteAtividade } from '../../Services/AtividadeExtraService';
 import { useEffect, useState } from 'react';
 
 function ListaAtvExtra() {
 
-    const navigate = useNavigate();
-    const [atividades, setAtividades] = useState([]);
-    const [error, setError] = useState("");
-  
-    useEffect(() => {
-      const getAtv = async () => {
-  
-        try {
-          const response = await getAtividadesExtras();
-          setAtividades(response);
-          console.log(response)
-        }
-        catch (err) {
-          setError(err)
-        }
-  
+  const navigate = useNavigate();
+  const [atividades, setAtividades] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const getAtv = async () => {
+
+      try {
+        const response = await getAtividadesExtras();
+        setAtividades(response);
+        console.log(response)
       }
-      getAtv();
-    },
-      [])
+      catch (err) {
+        setError(err)
+      }
+
+    }
+    getAtv();
+  },
+    [])
 
   const handleEdit = (id) => {
     console.log('Editando voluntário:', id);
     navigate(`/CadastroAtividadeExtra/${id}`);
   };
 
-  const handleDelete = (id) => {
-    console.log('Deletando voluntário:', id);
-    // Lógica para deletar
+  const handleDelete = async (id) => {
+    try {
+      await deleteAtividade(id);
+      try {
+        const response = await getAtividadesExtras();
+        setAtividades(response);
+      }
+      catch (err) {
+        setError(err)
+      }
+      console.log("deleu ")
+    }
+    catch (err) {
+      setError(err);
+    }
   };
 
   const actionColumn = {
-    field: 'actions', 
-    headerName: 'Ações', 
-    width:250,
+    field: 'actions',
+    headerName: 'Ações',
+    width: 250,
     sortable: false,
     renderCell: (params) => (
       <div className={style.actionButtons}>
-        <IconButton 
+        <IconButton
           onClick={() => handleEdit(params.row.id)}
           color="primary"
           size="small"
@@ -65,7 +77,7 @@ function ListaAtvExtra() {
         >
           <DeleteIcon />
         </IconButton>
-        <ButtonLink className={style.botaoPresenca} to={`/GestaoDePresencaAtividadesExtras/${params.row.id}`} label="Presenças"/>
+        <ButtonLink className={style.botaoPresenca} to={`/GestaoDePresencaAtividadesExtras/${params.row.id}`} label="Presenças" />
 
       </div>
     ),

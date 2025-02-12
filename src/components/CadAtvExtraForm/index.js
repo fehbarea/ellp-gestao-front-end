@@ -3,26 +3,52 @@ import Input from '../Input';
 import style from './FormCarAtvExtra.module.css';
 import Submit from '../Submit';
 import ButtonLink from '../ButtonLink';
-import { cadastrarAtividadeExtra } from '../../Services/AtividadeExtraService'
-import { useState } from 'react';
+import { cadastrarAtividadeExtra, getAtividade, updateAtividade } from '../../Services/AtividadeExtraService'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function CadAtvExtraForm() {
 
     const [error, setError] = useState('');
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { id } = useParams();
 
     const onSubmit = async (data) => {
         try {
-            console.log("entrou");
             const [year, month, day] = data.data_atividade.split("-");
             data.data_atividade = `${day}/${month}/${year}`;
             console.log(data);
+            if(!id){
             await cadastrarAtividadeExtra(data);
+        }else{
+            await updateAtividade(id, data);
+        }
         }
         catch (err) {
             setError(err.message)
         }
+    
     }
+
+        useEffect(() => {
+            const getAtv = async () => {
+                if (id) {
+                    try {
+                        const response = await getAtividade(id);
+                        const [day, month, year] = response.data_atividade.split('/');
+                        response.data_atividade = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+                        console.log(response)
+                        reset(response);
+                    }
+                    catch (err) {
+                        setError(err.message)
+                    }
+                }
+            }
+            getAtv();
+        },
+            []
+        )
 
     return (
         <>
@@ -61,7 +87,7 @@ function CadAtvExtraForm() {
                 />
                 <section className={style.buttons}>
                     <Submit
-                        label='Cadastrar'
+                        label={id ? 'Atualizar' : 'Cadastrar'}
                         handleSubmit={onSubmit}
                     />
                     <ButtonLink

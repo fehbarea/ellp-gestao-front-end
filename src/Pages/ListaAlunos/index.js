@@ -12,7 +12,7 @@ import { useState, useEffect } from 'react';
 function ListaAlunos() {
 
     const [error, setError] = useState('');
-    const [alunos, setAlunos] = useState([])
+    const [alunos, setAlunos] = useState([]);
     const navigate = useNavigate();
 
     const handleEdit = (id) => {

@@ -4,33 +4,53 @@ import style from './FormCadastroOficina.module.css';
 import Select from '../Select';
 import Radio from '../Radio';
 import Submit from '../Submit';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Datagrid from '../../components/DataGrid';
 import ToggleButton from '@mui/material/ToggleButton';
 import AddBox from '@mui/icons-material/AddBox';
 import { Scale } from '@mui/icons-material';
 import ButtonLink from '../ButtonLink';
+import { getAlunos } from '../../Services/alunosService';
+import PopUp from '../../components/PopUp';
+import { cadastrarOficina } from '../../Services/OficinasService';
 
 function FormCadastroOficina() {
 
+    const [alunos, setAlunos] = useState([]);
     const [AlunosAdicionados, setAlunosAdicionados] = useState([]);
+    const [mensagemPopUp, setMensagemPopUp] = useState(null);
+    const [error, setError] = useState('');
 
-    const onSubmit = (data) => {
-        console.log(data);
-    }
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-    const rows = [
-        { id: 1, Nome: 'João Silva' },
-        { id: 2, Nome: 'Maria Oliveira' },
-        { id: 3, Nome: 'Pedro Santos' },
-        { id: 4, Nome: 'Ana Costa' },
-        { id: 5, Nome: 'Carlos Souza' },
-        { id: 6, Nome: 'Julia Pereira' },
-        { id: 7, Nome: 'Lucas Ferreira' },
-        { id: 8, Nome: 'Mariana Lima' },
-        { id: 9, Nome: 'Rafael Almeida' },
-        { id: 10, Nome: 'Beatriz Santos' }
-    ];
+    const onSubmit = async (data) => {
+        try {
+            const oficinaData = {
+                ...data,
+                alunos: AlunosAdicionados.map(aluno => aluno.id)
+            };
+
+            await cadastrarOficina(oficinaData);
+            setMensagemPopUp({ titulo: 'Cadastro de Oficina', texto: 'Oficina cadastrada com sucesso!' });
+            setAlunosAdicionados([]);
+            reset();
+        } catch (error) {
+            setMensagemPopUp({ titulo: 'Erro', texto: 'Erro ao cadastrar oficina. Tente novamente.' });
+        }
+    };
+
+    useEffect(() => {
+        const getAlu = async () => {
+            try {
+                const data = await getAlunos();
+                setAlunos(data);
+            }
+            catch (err) {
+                setError(err.message);
+            }
+        }
+        getAlu();
+    }, [])
 
     const handleToggle = (params) => {
         console.log(params)
@@ -66,10 +86,10 @@ function FormCadastroOficina() {
 
     const voluntarios = [{ value: 'Autismo', label: 'Autismo' }]
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
     return (
         <section className={style.page}>
+            {mensagemPopUp && <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />}
             <form id='FormCadastroOficina' className={style.form} onSubmit={handleSubmit(onSubmit)}>
                 <section>
                     <Input
@@ -140,7 +160,7 @@ function FormCadastroOficina() {
                 <span>
                     <h4>Adicionar Alunos</h4>
                     <Datagrid
-                        rows={rows} columns={columnsAddAluno}
+                        rows={alunos} columns={columnsAddAluno}
                         disableColumnMenu
                         disableDensitySelector
                         disableColumnSelector

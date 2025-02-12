@@ -6,33 +6,69 @@ import Radio from '../Radio';
 import Submit from '../Submit'
 import Button from '../Button'
 import ButtonLink from '../ButtonLink';
+import { cadastrarVolunario, getCargos, getDepartamentos} from '../../Services/voluntariosService'
+import { useEffect, useState } from 'react';
 
 function CadVolForm() {
 
-        //valores da API
-        const defaultValues = {
-            Nome: 'João Silva',
-            RA: '123456',
-            Telefone: '1234567890',
-            CPF: '123.456.789-00',
-            Email: 'joao.silva@example.com',
-            Curso: 'engenharia de softwate',
-            situacao: 'Inativo',
-            Departamento: 'RH',
-            Função: 'Voluntário'
-        };
+    //valores da API
+    const defaultValues = {
+        nome: 'João Silva',
+        RA: '123456',
+        Telefone: '1234567890',
+        CPF: '123.456.789-00',
+        Email: 'joao.silva@example.com',
+        Curso: 'engenharia de softwate',
+        situacao: 'Inativo',
+        Departamento: 'RH',
+        Função: 'Voluntário'
+    };
 
-    const { register, handleSubmit, formState: { errors } } = useForm({defaultValues});
+    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues });
+    const [error, setError] = useState('');
+    const [cargoOptions, setCargoOptions] = useState([])
+    const [DepartamentosOptions, setDepartamentoptions] = useState([])
 
-    const onSubmit = (data) => {
-        console.log(data);
+    useEffect(() => {
+        const getCar = async () => {
+            try{
+            const response1 = await getCargos();
+            setCargoOptions(response1)
+            }
+            catch(err){
+                setError(err.message)
+            }
+        }
+        const getDepart = async () => {
+            try{
+            const response2 = await getDepartamentos();
+            setDepartamentoptions(response2);
+        }
+        catch(err){
+            setError(err.message)
+        }
+        }
+        getCar();
+        getDepart();
+    },
+    []
+    )
+
+    const onSubmit = async (data) => {
+        try {
+            await cadastrarVolunario(data)
+            console.log(data)
+        }
+        catch (err) {
+            setError(err.message)
+        }
     }
 
     return (
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
             <Input
                 label='Nome'
-                name='Nome'
+                name='nome'
                 errors={errors}
                 validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                 register={register}
@@ -40,34 +76,41 @@ function CadVolForm() {
             <section className={style.RaTelCpf}>
                 <Input
                     label='RA'
-                    name='RA'
+                    name='ra'
                     errors={errors}
                     validationRules={{ required: 'Campo Obrigatório' }}
                     register={register}
                 />
                 <Input
                     label='Telefone'
-                    name='Telefone'
+                    name='telefone'
                     errors={errors}
                     validationRules={{ required: 'Campo Obrigatório' }}
                     register={register}
                 />
                 <Input
                     label='CPF'
-                    name='CPF'
+                    name='cpf'
                     errors={errors}
-                    validationRules={{ required: 'Campo Obrigatório', 
-                        pattern: {
-                        value: /^(([0-9]{3}[.][0-9]{3}[.][0-9]{3}[-][0-9]{2})|([0-9]{11}))$/,
-                        message: 'CPF deve estar formatado como: 000.000.000-00'
-                    } }}
-                    placeholder='000.000.000-00'
+                    validationRules={{
+                        required: 'Campo Obrigatório',
+                        minLength: {
+                            value: 11,
+                            message: 'O CPF deve ter exatamente 11 dígitos.',
+                          },
+                          maxLength: {
+                            value: 11,
+                            message: 'O CPF deve ter exatamente 11 dígitos.',
+                          },
+                    }}
+                    placeholder='00000000000'
                     register={register}
+                    type='number'
                 />
             </section>
             <Input
                 label='Email'
-                name='Email'
+                name='email'
                 errors={errors}
                 validationRules={{
                     required: 'Campo Obrigatório',
@@ -75,13 +118,57 @@ function CadVolForm() {
                         value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
                         message: 'Email inválido'
                     }
+                    
                 }}
                 register={register}
             />
+            <Input
+            label='Senha'
+            name='senha'
+            errors={errors}
+            validationRules={{
+                required: 'Campo Obrigatório',
+                minLength: {
+                    value: 6,
+                    message: 'A senha deve ter no mínimo 6 dígitos.',
+                  }
+            }}
+            register={register}
+        />
+        <Input
+                label='Endereço'
+                name='endereco'
+                errors={errors}
+                validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Endereco deve ter pelo menos 3 caracteres' } }}
+                register={register}
+            />
+            <section className={style.cursoSituacao}>
+            <Input
+                label='Bairro'
+                name='bairro'
+                errors={errors}
+                validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Endereco deve ter pelo menos 3 caracteres' } }}
+                register={register}
+            />
+            <Input
+                label='CEP'
+                name='cep'
+                errors={errors}
+                validationRules={{ required: 'Campo Obrigatório', minLength: {
+                    value: 8,
+                    message: 'O CEP deve ter exatamente 8 dígitos.',
+                  },
+                  maxLength: {
+                    value: 8,
+                    message: 'O CEP deve ter exatamente 8 dígitos.',
+                  }, }}
+                register={register}
+            />
+            </section>
             <section className={style.cursoSituacao}>
                 <Select
                     label='Curso'
-                    name='Curso'
+                    name='curso'
                     register={register}
                     errors={errors}
                     options={[
@@ -93,12 +180,12 @@ function CadVolForm() {
                 />
                 <Radio
                     label='Situação'
-                    name='situacao'
+                    name='ativo'
                     register={register}
                     errors={errors}
                     options={[
-                        { value: 'Ativo', label: 'Ativo' },
-                        { value: 'Inativo', label: 'Inativo' }
+                        { value: true, label: 'Ativo' },
+                        { value: false, label: 'Inativo' }
                     ]}
                     validationRules={{ required: 'Campo Obrigatório' }} />
 
@@ -106,36 +193,38 @@ function CadVolForm() {
 
             <Select
                 label='Departamento'
-                name='Departamento'
+                name='id_departamento'
                 register={register}
                 errors={errors}
                 options={[
-                    { value: 'RH', label: 'Recursos Humanos' },
-                    { value: 'Ensino', label: 'Ensino' }
-                ]}
+                    ...DepartamentosOptions.map((depart) => ({
+                        value: depart.id, label: depart.nome
+                    }))
+                    ]}
                 validationRules={{ required: 'Campo Obrigatório' }}
             />
-
-            <Select
-                label='Função'
-                name='Função'
-                register={register}
-                errors={errors}
-                options={[
-                    { value: 'Voluntário', label: 'Voluntário' },
-                    { value: 'Monitor', label: 'Monitor' }
+             <Select
+            label='Cargo'
+            name='cargo_id'
+            register={register}
+            errors={errors}
+            options={[
+                ...cargoOptions.map((cargo) => ({
+                    value: cargo.id, label: cargo.nome
+                }))
                 ]}
-                validationRules={{ required: 'Campo Obrigatório' }}
-            />
+            validationRules={{ required: 'Campo Obrigatório' }}
+        />
+             {<p className={style.error}>{error}</p>}
             <section className={style.buttons}>
-            <Submit
-                label='Cadastrar'
-                handleSubmit={onSubmit}
-            />
-            <ButtonLink 
-                to='/ListaDeVoluntarios'
-                label='Lista De Voluntários'
-            />
+                <Submit
+                    label='Cadastrar'
+                    handleSubmit={onSubmit}
+                />
+                <ButtonLink
+                    to='/ListaDeVoluntarios'
+                    label='Lista De Voluntários'
+                />
             </section>
         </form>
 

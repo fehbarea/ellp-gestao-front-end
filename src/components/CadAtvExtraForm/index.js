@@ -13,8 +13,9 @@ function CadAtvExtraForm() {
 
     const onSubmit = async (data) => {
         try {
-            const [year, month, day] = data.data_atividate.split("-");
-            data.data_atividate = `${day}/${month}/${year}`;
+            console.log("entrou");
+            const [year, month, day] = data.data_atividade.split("-");
+            data.data_atividade = `${day}/${month}/${year}`;
             console.log(data);
             await cadastrarAtividadeExtra(data);
         }

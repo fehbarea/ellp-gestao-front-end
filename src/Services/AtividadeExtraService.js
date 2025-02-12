@@ -3,7 +3,7 @@ import api from './configAxios'
 export async function cadastrarAtividadeExtra(data) {
 
     try {
-        await api.post('/atividades', data)
+        await api.post('/atividades', data);
 
     } catch (error) {
         console.error('Erro:', error)
@@ -18,3 +18,14 @@ export async function cadastrarAtividadeExtra(data) {
         }
     }
 }
+
+export async function getAtividadesExtras() {
+    try {
+      const response = await api.get('/atividades'); 
+      return response.data; 
+    } catch (error) {
+      console.error('Erro ao carregar cargos:', error);
+      throw new Error('Erro ao carregar a página');
+    }
+  }
+  

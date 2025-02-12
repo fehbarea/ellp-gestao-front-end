@@ -6,18 +6,38 @@ import ButtonLink from '../../components/ButtonLink'
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getOficinas } from '../../Services/OficinasService';
 
 function ListaOficina() {
 
   const navigate = useNavigate();
+  const [oficinas, setOficinas] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const getOfic = async () => {
+
+      try {
+        const response = await getOficinas();
+        setOficinas(response);
+        console.log(response)
+      }
+      catch (err) {
+        setError(err)
+      }
+
+    }
+    getOfic();
+  },
+    [])
 
   const handleEdit = (id) => {
-
-    //navigate(`/CadastroVoluntarios/${id}`);
+    navigate(`/CadastroOficina/${id}`);
   };
 
   const actionColumn = {
-    
+
     field: 'actions',
     headerName: 'Ações',
     width: 250,
@@ -32,7 +52,7 @@ function ListaOficina() {
           <EditIcon />
         </IconButton>
         <ButtonLink
-        className={style.botaoPresenca}
+          className={style.botaoPresenca}
           to={`/PresencaOficinas/${params.row.id}`}
           label="Presenças"
         />
@@ -40,25 +60,15 @@ function ListaOficina() {
     ),
   };
 
-  const rows = [
-    { id: 1, RA: '123456', Nome: 'João Silva', Departamento: 'RH', Horas: 40, Situacao: 'Ativo' },
-    { id: 2, RA: '654321', Nome: 'Maria Oliveira', Departamento: 'Ensino', Horas: 35, Situacao: 'Inativo' },
-    { id: 3, RA: '789012', Nome: 'Carlos Souza', Departamento: 'RH', Horas: 20, Situacao: 'Ativo' },
-    { id: 4, RA: '345678', Nome: 'Ana Pereira', Departamento: 'Ensino', Horas: 25, Situacao: 'Ativo' },
-    { id: 5, RA: '901234', Nome: 'Pedro Santos', Departamento: 'RH', Horas: 30, Situacao: 'Inativo' },
-    { id: 6, RA: '567890', Nome: 'Lucas Lima', Departamento: 'Ensino', Horas: 15, Situacao: 'Ativo' },
-    { id: 7, RA: '234567', Nome: 'Fernanda Costa', Departamento: 'RH', Horas: 10, Situacao: 'Ativo' },
-    { id: 8, RA: '890123', Nome: 'Juliana Almeida', Departamento: 'Ensino', Horas: 45, Situacao: 'Inativo' },
-    { id: 9, RA: '456789', Nome: 'Rafael Gomes', Departamento: 'RH', Horas: 50, Situacao: 'Ativo' },
-    { id: 10, RA: '012345', Nome: 'Beatriz Ferreira', Departamento: 'Ensino', Horas: 40, Situacao: 'Ativo' },
-  ];
+  const rows = oficinas;
 
   const columns = [
-    { field: 'Ano', headerName: 'Ano', width: 200 },
-    { field: 'Periodo', headerName: 'Período', width: 350 },
-    { field: 'Nome', headerName: 'Nome', width: 350 },
-    { field: 'Professor', headerName: 'Turmo', width: 100 },
-    { field: 'Situacao', headerName: 'Situação', width: 200 },
+    { field: 'ano', headerName: 'Ano', width: 200 },
+    { field: 'periodo', headerName: 'Período', width: 350 },
+    { field: 'nome', headerName: 'Nome', width: 350 },
+    { field: 'professor', headerName: 'Turmo', width: 100 },
+    { field: 'ativo', headerName: 'Situação', width: 200 },
+    { field: 'turno', headerName: 'Turno', width: 200 },
     actionColumn
   ];
   return (
@@ -70,7 +80,9 @@ function ListaOficina() {
         <Datagrid
           rows={rows} columns={columns} />
 
+        {<p className={style.error}>{error}</p>}
         <div className={style.botoes}>
+
           <ButtonLink
             to='/CadastroVoluntarios'
             label='Cadastrar' />

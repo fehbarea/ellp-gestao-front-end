@@ -20,7 +20,25 @@ export async function cadastrarOficina(data) {
   }
 }
 
+export async function cadastrarAlunoNaOficina(data) {
 
+  try {
+    const result = await api.post('alunos/oficinas', data)
+    return result.data;
+
+  } catch (error) {
+    console.error('Erro ao cadastrar oficina:', error)
+    if (error.response) {
+      throw new Error(error.response.data.message || 'Erro ao fazer Cadastro')
+    }
+    else if (error.request) {
+      throw new Error('Sem resposta do servidor. Verifique sua conexão.')
+    }
+    else {
+      throw new Error('Erro');
+    }
+  }
+}
 
 export async function getOficinas() {
   try {

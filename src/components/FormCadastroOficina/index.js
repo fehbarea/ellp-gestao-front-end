@@ -4,38 +4,58 @@ import style from './FormCadastroOficina.module.css';
 import Select from '../Select';
 import Radio from '../Radio';
 import Submit from '../Submit';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Datagrid from '../../components/DataGrid';
 import ToggleButton from '@mui/material/ToggleButton';
 import AddBox from '@mui/icons-material/AddBox';
 import { Scale } from '@mui/icons-material';
 import ButtonLink from '../ButtonLink';
+import { getAlunos } from '../../Services/alunosService';
+import PopUp from '../../components/PopUp';
+import { cadastrarOficina } from '../../Services/OficinasService';
 
 function FormCadastroOficina() {
 
+    const [alunos, setAlunos] = useState([]);
     const [AlunosAdicionados, setAlunosAdicionados] = useState([]);
+    const [mensagemPopUp, setMensagemPopUp] = useState(null);
+    const [error, setError] = useState('');
 
-    const onSubmit = (data) => {
-        console.log(data);
-    }
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-    const rows = [
-        { id: 1, Nome: 'João Silva' },
-        { id: 2, Nome: 'Maria Oliveira' },
-        { id: 3, Nome: 'Pedro Santos' },
-        { id: 4, Nome: 'Ana Costa' },
-        { id: 5, Nome: 'Carlos Souza' },
-        { id: 6, Nome: 'Julia Pereira' },
-        { id: 7, Nome: 'Lucas Ferreira' },
-        { id: 8, Nome: 'Mariana Lima' },
-        { id: 9, Nome: 'Rafael Almeida' },
-        { id: 10, Nome: 'Beatriz Santos' }
-    ];
+    const onSubmit = async (data) => {
+        try {
+            //alunos: AlunosAdicionados.map(aluno => aluno.id)
+            data.ativo = data.ativo === 'true';
+            console.log(data);
+            const response = await cadastrarOficina(data);
+            console.log(response);
+            setMensagemPopUp({ titulo: 'Cadastro de Oficina', texto: 'Oficina cadastrada com sucesso!' });
+            setAlunosAdicionados([]);
+            reset();
+        } catch (error) {
+            setMensagemPopUp({ titulo: 'Erro', texto: 'Erro ao cadastrar oficina. Tente novamente.' });
+        }
+    };
+
+    useEffect(() => {
+        const getAlu = async () => {
+            try {
+                const data = await getAlunos();
+                console.log(data)
+                setAlunos(data);
+            }
+            catch (err) {
+                setError(err.message);
+            }
+        }
+        getAlu();
+    }, [])
 
     const handleToggle = (params) => {
         console.log(params)
-        AlunosAdicionados.filter((aluno) => aluno.id === params.id) - 1 ?
-            setAlunosAdicionados(AlunosAdicionados => [...AlunosAdicionados, { id: params.id, Nome: params.Nome }]) :
+        AlunosAdicionados.filter((aluno) => aluno.id === params.id)> -1 ?
+            setAlunosAdicionados(AlunosAdicionados => [...AlunosAdicionados, { id: params.id, nome: params.nome }]) :
             setAlunosAdicionados(AlunosAdicionados.filter((alunos) => alunos.id !== params.id))
 
     };
@@ -56,25 +76,25 @@ function FormCadastroOficina() {
     };
 
     const columnsAddAluno = [
-        { field: 'Nome', headerName: 'Nome', width: 200 },
+        { field: 'nome', headerName: 'Nome', width: 200 },
         actionColumn
     ];
     const columnsAdicionados = [
-        { field: 'Nome', headerName: 'Nome', width: 200 },
+        { field: 'nome', headerName: 'Nome', width: 200 },
     ]
 
 
     const voluntarios = [{ value: 'Autismo', label: 'Autismo' }]
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
 
     return (
         <section className={style.page}>
+            {mensagemPopUp && <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />}
             <form id='FormCadastroOficina' className={style.form} onSubmit={handleSubmit(onSubmit)}>
                 <section>
                     <Input
                         label='Nome'
-                        name='Nome'
+                        name='nome'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                         register={register}
@@ -82,7 +102,7 @@ function FormCadastroOficina() {
                     />
                     <Input
                         label='Ano'
-                        name='Ano'
+                        name='ano'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório', minLength: { value: 4, message: 'Exatamente 4 caracteres' }, maxLength: { value: 4, message: 'Exatamente 4 caracteres' } }}
                         register={register}
@@ -91,7 +111,7 @@ function FormCadastroOficina() {
                     />
                     <Input
                         label='Período'
-                        name='Periodo'
+                        name='periodo'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório', maxLength: { value: 2, message: 'Máximo de 2 caracteres' } }}
                         register={register}
@@ -102,7 +122,7 @@ function FormCadastroOficina() {
                 <section className={style.NomeAnoPeriodo}>
                     <Select
                         label='Professor'
-                        name='Professor'
+                        name='professor'
                         register={register}
                         errors={errors}
                         options={voluntarios}
@@ -111,7 +131,7 @@ function FormCadastroOficina() {
                     />
                     <Select
                         label='Turno'
-                        name='Turno'
+                        name='turno'
                         register={register}
                         errors={errors}
                         options={[
@@ -124,12 +144,12 @@ function FormCadastroOficina() {
                     />
                     <Radio
                         label='Situação'
-                        name='situacao'
+                        name='ativo'
                         register={register}
                         errors={errors}
                         options={[
-                            { value: 'Ativo', label: 'Ativo' },
-                            { value: 'Inativo', label: 'Inativo' }
+                            { value: 'true', label: 'Ativo' },
+                            { value: 'false', label: 'Inativo' }
                         ]}
                         validationRules={{ required: 'Campo Obrigatório' }}
                         className={style.TurnoSit}
@@ -140,7 +160,7 @@ function FormCadastroOficina() {
                 <span>
                     <h4>Adicionar Alunos</h4>
                     <Datagrid
-                        rows={rows} columns={columnsAddAluno}
+                        rows={alunos} columns={columnsAddAluno}
                         disableColumnMenu
                         disableDensitySelector
                         disableColumnSelector

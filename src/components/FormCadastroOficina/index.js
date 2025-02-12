@@ -12,7 +12,8 @@ import { Scale } from '@mui/icons-material';
 import ButtonLink from '../ButtonLink';
 import { getAlunos } from '../../Services/alunosService';
 import PopUp from '../../components/PopUp';
-import { cadastrarOficina } from '../../Services/OficinasService';
+import { cadastrarAlunoNaOficina, cadastrarOficina, cadastrarAulasNaOficina } from '../../Services/OficinasService';
+import MultiDatePickerField from '../MultiDatePickerField'
 
 function FormCadastroOficina() {
 
@@ -21,19 +22,32 @@ function FormCadastroOficina() {
     const [mensagemPopUp, setMensagemPopUp] = useState(null);
     const [error, setError] = useState('');
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
 
     const onSubmit = async (data) => {
         try {
-            //alunos: AlunosAdicionados.map(aluno => aluno.id)
+            if(AlunosAdicionados.length==0){
+                setMensagemPopUp({ titulo: 'Erro', texto: 'Erro ao cadastrar oficina. Selecione no mínimo 1 Aluno' });
+                console.log("0 alunos")
+                return
+            }
             data.ativo = data.ativo === 'true';
-            console.log(data);
-            const response = await cadastrarOficina(data);
-            console.log(response);
+
+            let dataAulas = data.diasSelecionados;
+
+            const responseOficina = await cadastrarOficina(data);
+        
+            await cadastrarAlunoNaOficina(responseOficina.id, {alunos_ids: AlunosAdicionados.map(aluno => aluno.id)});
+            for(let aula of dataAulas){
+                console.log(aula)
+                await cadastrarAulasNaOficina({data_aula: aula, oficina_id: responseOficina.id, horas:data.horasPorAula})
+            }
+
             setMensagemPopUp({ titulo: 'Cadastro de Oficina', texto: 'Oficina cadastrada com sucesso!' });
             setAlunosAdicionados([]);
             reset();
         } catch (error) {
+            console.log(error)
             setMensagemPopUp({ titulo: 'Erro', texto: 'Erro ao cadastrar oficina. Tente novamente.' });
         }
     };
@@ -54,7 +68,7 @@ function FormCadastroOficina() {
 
     const handleToggle = (params) => {
         console.log(params)
-        AlunosAdicionados.filter((aluno) => aluno.id === params.id)> -1 ?
+        AlunosAdicionados.filter((aluno) => aluno.id === params.id) > -1 ?
             setAlunosAdicionados(AlunosAdicionados => [...AlunosAdicionados, { id: params.id, nome: params.nome }]) :
             setAlunosAdicionados(AlunosAdicionados.filter((alunos) => alunos.id !== params.id))
 
@@ -118,6 +132,7 @@ function FormCadastroOficina() {
                         type='number'
                         className={style.AnoPer}
                     />
+                   
                 </section>
                 <section className={style.NomeAnoPeriodo}>
                     <Select
@@ -154,7 +169,24 @@ function FormCadastroOficina() {
                         validationRules={{ required: 'Campo Obrigatório' }}
                         className={style.TurnoSit}
                     />
+                     <Input
+                        label='Horas por aula'
+                        name='horasPorAula'
+                        errors={errors}
+                        validationRules={{ required: 'Campo Obrigatório', maxLength: { value: 2, message: 'Máximo de 2 caracteres' } }}
+                        register={register}
+                        type='number'
+                        className={style.TurnoSit}
+                    />
+                    
                 </section>
+                <MultiDatePickerField
+                        name="diasSelecionados"
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                        validationRules={{ required: 'Campo Obrigatório' }}
+                    />
             </form>
             <article>
                 <span>

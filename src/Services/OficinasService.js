@@ -20,10 +20,10 @@ export async function cadastrarOficina(data) {
   }
 }
 
-export async function cadastrarAlunoNaOficina(data) {
+export async function cadastrarAlunoNaOficina(id,data) {
 
   try {
-    const result = await api.post('alunos/oficinas', data)
+    const result = await api.post(`alunos/oficina/${id}`, data)
     return result.data;
 
   } catch (error) {
@@ -47,6 +47,26 @@ export async function getOficinas() {
   } catch (error) {
     console.error('Erro ao carregar oficinas:', error);
     throw new Error('Erro ao carregar a página');
+  }
+}
+
+export async function cadastrarAulasNaOficina(data) {
+
+  try {
+    const result = await api.post('/aulas', data)
+    return result.data;
+
+  } catch (error) {
+    console.error('Erro ao cadastrar oficina:', error)
+    if (error.response) {
+      throw new Error(error.response.data.message || 'Erro ao fazer Cadastro')
+    }
+    else if (error.request) {
+      throw new Error('Sem resposta do servidor. Verifique sua conexão.')
+    }
+    else {
+      throw new Error('Erro');
+    }
   }
 }
 

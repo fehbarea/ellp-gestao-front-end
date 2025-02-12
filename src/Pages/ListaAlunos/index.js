@@ -6,9 +6,12 @@ import ButtonLink from '../../components/ButtonLink'
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { getAlunos } from '../../Services/alunosService';
+import { useState, useEffect } from 'react';
 
 function ListaAlunos() {
 
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleEdit = (id) => {
@@ -35,13 +38,19 @@ function ListaAlunos() {
         ),
     };
 
-    const rows = [
-        { id: 1, Nome: 'João Silva', Responsavel1: 'Joaquim', Responsavel2: '', Telefone: '(44)91234-5678', Situacao: 'Ativo' },
-        { id: 2, Nome: 'Maria Silva', Responsavel1: 'Joabe', Responsavel2: 'José', Telefone: '(43)91234-5678', Situacao: 'Inativo' },
-        { id: 3, Nome: 'Antônio Silva', Responsavel1: 'Marta', Responsavel2: '', Telefone: '(64)91234-5678', Situacao: 'Ativo' },
-        { id: 4, Nome: 'João Jão', Responsavel1: 'Joaquim', Responsavel2: 'Carlos', Telefone: '(62)91234-5678', Situacao: 'Inativo' },
-        { id: 5, Nome: 'João Sousa', Responsavel1: 'Jorge', Responsavel2: '', Telefone: '(41)91234-5678', Situacao: 'Ativo' },
-    ];
+    let rows = [];
+
+    useEffect(() => {
+        const getAlunos = async () => {
+            try {
+                rows = getAlunos();
+            }
+            catch(err) {
+                setError (err.message);
+            }
+        }
+        getAlunos();
+    }, [])
 
     const columns = [
         { field: 'Nome', headerName: 'Nome', width: 350 },

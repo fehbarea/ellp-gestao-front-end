@@ -60,6 +60,7 @@ function CadVolForm() {
             setMensagemPopUp({ titulo: 'Cadastro de Voluntário', texto: 'Erro no cadastro de voluntário!' });
             setError(err.message)
         }
+        return <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />
     }
 
 
@@ -83,7 +84,7 @@ function CadVolForm() {
 
     return (
         <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
-            {mensagemPopUp && <PopUp titulo={mensagemPopUp.titulo} texto={mensagemPopUp.texto} />}
+
             <Input
                 label='Nome'
                 name='nome'

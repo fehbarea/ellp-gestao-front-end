@@ -4,7 +4,6 @@ import style from './CadVolForm.module.css'
 import Select from '../Select';
 import Radio from '../Radio';
 import Submit from '../Submit'
-import Button from '../Button'
 import ButtonLink from '../ButtonLink';
 import { cadastrarVolunario, getCargos, getDepartamentos, getVoluntario, updateVoluntario } from '../../Services/voluntariosService'
 import { useEffect, useState } from 'react';

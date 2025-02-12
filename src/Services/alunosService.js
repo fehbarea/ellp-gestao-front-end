@@ -19,6 +19,24 @@ export async function cadastrarAluno(data) {
         }
     }
 }
+export async function cadastrarResponsavelAluno(data) {
+
+    try {
+        await api.post('/responsaveis', data)
+
+    } catch (error) {
+        console.error('Erro ao fazer login:', error)
+        if (error.response) {
+            throw new Error(error.response.data.message || 'Erro ao fazer Cadastro')
+        }
+        else if (error.request) {
+            throw new Error('Sem resposta do servidor. Verifique sua conexão.')
+        }
+        else {
+            throw new Error('Erro');
+        }
+    }
+}
 
 export async function getResponsaveisAluno(id) {
     try {

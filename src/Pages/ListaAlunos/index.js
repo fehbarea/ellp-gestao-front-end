@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 function ListaAlunos() {
 
     const [error, setError] = useState('');
+    const [alunos, setAlunos] = useState([])
     const navigate = useNavigate();
 
     const handleEdit = (id) => {
@@ -38,18 +39,17 @@ function ListaAlunos() {
         ),
     };
 
-    let rows = [];
-
     useEffect(() => {
-        const getAlunos = async () => {
+        const getAlu = async () => {
             try {
-                rows = getAlunos();
+                const data = getAlunos();
+                setAlunos(data);
             }
             catch(err) {
                 setError (err.message);
             }
         }
-        getAlunos();
+        getAlu();
     }, [])
 
     const columns = [
@@ -69,9 +69,9 @@ function ListaAlunos() {
                     nome='Lista de Alunos' />
 
                 <Datagrid
-                    rows={rows} columns={columns} />
+                    rows={alunos} columns={columns} />
 
-                <h1 className={style.quantText}>Alunos ({rows.length})</h1>
+                <h1 className={style.quantText}>Alunos ({alunos.length})</h1>
 
                 <div className={style.botoes}>
                     <ButtonLink

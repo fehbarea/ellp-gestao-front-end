@@ -3,21 +3,32 @@ import Input from '../Input';
 import style from './FormCarAtvExtra.module.css';
 import Submit from '../Submit';
 import ButtonLink from '../ButtonLink';
+import { cadastrarAtividadeExtra } from '../../Services/AtividadeExtraService'
+import { useState } from 'react';
 
 function CadAtvExtraForm() {
 
-    const onSubmit = (data) => {
-        console.log(data);
-    }
+    const [error, setError] = useState('');
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = async (data) => {
+        try {
+            const [year, month, day] = data.data_atividate.split("-");
+            data.data_atividate = `${day}/${month}/${year}`;
+            console.log(data);
+            await cadastrarAtividadeExtra(data);
+        }
+        catch (err) {
+            setError(err.message)
+        }
+    }
 
     return (
         <>
             <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     label='Nome'
-                    name='Nome'
+                    name='nome'
                     errors={errors}
                     validationRules={{ required: 'Campo Obrigatório', minLength: { value: 3, message: 'Nome deve ter pelo menos 3 caracteres' } }}
                     register={register}
@@ -25,7 +36,7 @@ function CadAtvExtraForm() {
                 <section className={style.DataHora}>
                     <Input
                         label='Data'
-                        name='Data'
+                        name='data_atividade'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório' }}
                         register={register}
@@ -33,16 +44,16 @@ function CadAtvExtraForm() {
                     />
                     <Input
                         label='Horas'
-                        name='Horas'
+                        name='horas'
                         errors={errors}
                         validationRules={{ required: 'Campo Obrigatório' }}
                         register={register}
-                        type='time'
+                        type='number'
                     />
                 </section>
                 <Input
                     label='Observações'
-                    name='Observações'
+                    name='observacao'
                     errors={errors}
                     register={register}
                     type='text'

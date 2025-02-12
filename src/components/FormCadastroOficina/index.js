@@ -43,6 +43,7 @@ function FormCadastroOficina() {
         const getAlu = async () => {
             try {
                 const data = await getAlunos();
+                console.log(data)
                 setAlunos(data);
             }
             catch (err) {
@@ -54,8 +55,8 @@ function FormCadastroOficina() {
 
     const handleToggle = (params) => {
         console.log(params)
-        AlunosAdicionados.filter((aluno) => aluno.id === params.id) - 1 ?
-            setAlunosAdicionados(AlunosAdicionados => [...AlunosAdicionados, { id: params.id, Nome: params.Nome }]) :
+        AlunosAdicionados.filter((aluno) => aluno.id === params.id)> -1 ?
+            setAlunosAdicionados(AlunosAdicionados => [...AlunosAdicionados, { id: params.id, nome: params.nome }]) :
             setAlunosAdicionados(AlunosAdicionados.filter((alunos) => alunos.id !== params.id))
 
     };
@@ -76,11 +77,11 @@ function FormCadastroOficina() {
     };
 
     const columnsAddAluno = [
-        { field: 'Nome', headerName: 'Nome', width: 200 },
+        { field: 'nome', headerName: 'Nome', width: 200 },
         actionColumn
     ];
     const columnsAdicionados = [
-        { field: 'Nome', headerName: 'Nome', width: 200 },
+        { field: 'nome', headerName: 'Nome', width: 200 },
     ]
 
 

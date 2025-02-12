@@ -84,7 +84,7 @@ function ListaOficina() {
         <div className={style.botoes}>
 
           <ButtonLink
-            to='/CadastroVoluntarios'
+            to='/CadastroOficina'
             label='Cadastrar' />
         </div>
       </section>

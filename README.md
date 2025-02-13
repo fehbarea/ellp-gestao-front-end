@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# ELLP Gestão Front-End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é uma aplicação web para gerenciar voluntários, oficinas e atividades extras. Foi desenvolvido utilizando React e várias bibliotecas auxiliares.
 
-## Available Scripts
+## Estrutura do Projeto
 
-In the project directory, you can run:
+A estrutura do projeto é organizada da seguinte forma:
+
+## Principais Bibliotecas Utilizadas
+
+- **React**: Biblioteca principal para construção da interface do usuário.
+- **React Router DOM**: Utilizado para gerenciamento de rotas na aplicação.
+- **React Hook Form**: Utilizado para gerenciamento de formulários e validação.
+- **Axios**: Utilizado para fazer requisições HTTP para a API.
+- **Material UI**: Utilizado para componentes de interface do usuário, como ícones e botões.
+- **React Multi Date Picker**: Utilizado para seleção de múltiplas datas em formulários.
+- **MUI Data Grid**: Utilizado para exibição de tabelas de dados.
+
+## Hooks Utilizados
+
+- **useState**: Utilizado para gerenciar estados locais nos componentes.
+- **useEffect**: Utilizado para efeitos colaterais, como chamadas de API.
+- **useForm**: Utilizado para gerenciar formulários e validação com React Hook Form.
+- **useParams**: Utilizado para acessar parâmetros de rota.
+- **useNavigate**: Utilizado para navegação programática entre rotas.
+
+## Organização dos Componentes
+
+Os componentes estão organizados em pastas dentro do diretório `src/components`. Cada componente possui seu próprio arquivo de estilo CSS e arquivo de implementação JS. 
+
+### Exemplos de Componentes
+
+- **Button**: Componente de botão reutilizável.
+- **ButtonLink**: Componente de link estilizado como botão.
+- **CadAlunoForm**: Formulário para cadastro de alunos.
+- **CadAtvExtraForm**: Formulário para cadastro de atividades extras.
+- **CadVolForm**: Formulário para cadastro de voluntários.
+- **DataGrid**: Componente para exibição de tabelas de dados.
+- **Header**: Componente de cabeçalho da aplicação.
+- **Input**: Componente de campo de entrada de dados.
+- **LoginForm**: Formulário de login.
+- **MultiDatePickerField**: Componente para seleção de múltiplas datas.
+- **PopUp**: Componente para exibição de mensagens popup.
+- **ProtectedRoute**: Componente para rotas protegidas.
+- **Radio**: Componente de botão de rádio.
+- **Select**: Componente de seleção.
+- **Submit**: Componente de botão de submissão.
+
+## Serviços
+
+Os serviços estão localizados na pasta `src/Services` e são responsáveis por fazer chamadas à API. 
+
+### Exemplos de Serviços
+
+- **alunosService.js**: Serviços relacionados ao gerenciamento de alunos.
+- **AtividadeExtraService.js**: Serviços relacionados ao gerenciamento de atividades extras.
+- **authService.js**: Serviços relacionados à autenticação.
+- **configAxios.js**: Configuração do Axios para chamadas HTTP.
+- **OficinasService.js**: Serviços relacionados ao gerenciamento de oficinas.
+- **voluntariosService.js**: Serviços relacionados ao gerenciamento de voluntários.
+
+## Scripts Disponíveis
+
+No diretório do projeto, você pode executar:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Executa a aplicação em modo de desenvolvimento.\
+Abra [http://localhost:3000](http://localhost:3000) para visualizá-la no navegador.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Inicia o executor de testes no modo interativo de observação.\
+Veja a seção sobre [executando testes](https://facebook.github.io/create-react-app/docs/running-tests) para mais informações.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Compila a aplicação para produção na pasta `build`.\
+Ele agrupa corretamente o React no modo de produção e otimiza a construção para o melhor desempenho.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Nota: esta é uma operação unilateral. Uma vez que você `eject`, você não pode voltar!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Se você não estiver satisfeito com a ferramenta de construção e as escolhas de configuração, você pode `eject` a qualquer momento. Este comando removerá a dependência única de construção do seu projeto.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Licença
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.

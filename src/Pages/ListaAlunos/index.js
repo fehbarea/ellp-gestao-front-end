@@ -43,6 +43,7 @@ function ListaAlunos() {
         const getAlu = async () => {
             try {
                 const data = await getAlunos();
+                data.map((i)=> i.data_nascimento = new Date(i.data_nascimento).toLocaleDateString("pt-BR"))
                 setAlunos(data);
                 console.log(data)
             }
@@ -54,11 +55,11 @@ function ListaAlunos() {
     }, [])
 
     const columns = [
-        { field: 'Nome', headerName: 'Nome', width: 350 },
-        { field: 'Responsavel1', headerName: 'Responsável 1', width: 350 },
-        { field: 'Responsavel2', headerName: 'Responsável 2', width: 350 },
-        { field: 'Telefone', headerName: 'Telefone', width: 200 },
-        { field: 'Situacao', headerName: 'Situação', width: 120 },
+        { field: 'nome', headerName: 'Nome', width: 350 },
+        { field: 'cpf', headerName: 'CPF', width: 350 },
+        { field: 'data_nascimento', headerName: 'Data de nascimento', width: 350 },
+        { field: 'cep', headerName: 'Cep', width: 200 },
+        { field: 'ativo', headerName: 'Situação', width: 120 },
         actionColumn
     ];
 

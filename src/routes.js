@@ -35,7 +35,7 @@ function AppRoutes(){
                 <Route path='/CadastroOficina' element={<CadastroOficina/>} />
                 <Route path='/CadastroOficina/:id' element={<CadastroOficina/>} />
                 <Route path='/CadastroAlunos' element={<CadAlunoPage/>} />
-                <Route path='/CadastroAlunos/id' element={<CadAlunoPage/>} />
+                <Route path='/CadastroAlunos/:id' element={<CadAlunoPage/>} />
                 <Route path='/ListaAlunos' element={<ListaAlunos/>} />
                 <Route path='/PresencaOficinas/:id' element={<GestaoPresencaOficina/>} />
                 <Route path='/AcessoNegado' element={<AcessoNegado/>} />

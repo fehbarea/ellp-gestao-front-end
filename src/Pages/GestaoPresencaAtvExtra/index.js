@@ -2,27 +2,18 @@ import style from './GestaoPresencaAtvExtra.module.css';
 import Datagrid from '../../components/DataGrid';
 import ToggleButton from '@mui/material/ToggleButton';
 import CheckIcon from '@mui/icons-material/Check';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import NomePags from '../../components/NomePags';
 import Button from '../../components/Button';
+import { getVoluntarios } from '../../Services/voluntariosService';
+import { useNavigate } from 'react-router-dom';
+
 
 function GestaoPresencaAtvExtra() {
 
-  const rowsJson = [
-    { id: 1, Voluntario: 'João Silva', presenca: true },
-    { id: 2, Voluntario: 'Maria Oliveira', presenca: false },
-    { id: 3, Voluntario: 'Pedro Santos', presenca: true },
-    { id: 4, Voluntario: 'Ana Costa', presenca: false },
-    { id: 5, Voluntario: 'Carlos Souza', presenca: true },
-    { id: 6, Voluntario: 'Julia Pereira', presenca: true },
-    { id: 7, Voluntario: 'Lucas Ferreira', presenca: false },
-    { id: 8, Voluntario: 'Mariana Lima', presenca: true },
-    { id: 9, Voluntario: 'Rafael Almeida', presenca: false },
-    { id: 10, Voluntario: 'Beatriz Santos', presenca: true }
-  ];
-
-  const [rows, setRows] = useState(rowsJson);
+  const navigate = useNavigate();
+  const [rows, setRows] = useState();
 
   const handleToggle = (id) => {
     setRows(
@@ -32,6 +23,7 @@ function GestaoPresencaAtvExtra() {
 
     )
   };
+
 
   const actionColumn = {
     field: 'presente',
@@ -63,21 +55,49 @@ function GestaoPresencaAtvExtra() {
 
 
   const columns = [
-    { field: 'Voluntario', headerName: 'Voluntário', width: 200 },
+    { field: 'nome', headerName: 'Voluntário', width: 200 },
     actionColumn
 
   ];
 
   function handleButton(event){
+    navigate(`/Home`);
+
     console.log("salvar")
   }
+
+  useEffect(() => {
+    const getVol = async () => {
+
+      try{
+        const response = await getVoluntarios();
+        
+        console.log(response)
+        const data = response.map(voluntario => ({
+          id: voluntario.id_voluntario,
+          ...voluntario,
+          id_voluntario: undefined
+        }));
+
+        setRows(data);
+        
+      }
+      catch (err){
+        console.log(err)
+      }
+      
+    }
+    getVol();
+  },
+  [])
+  
 
   return (
     <article className={style.GestaoPresencaAtvExtra}> 
       <Header />
       <section>
         <NomePags
-          nome='Lista de Voluntários' />
+          nome='Gestão de presença atividade extras'/>
         <Datagrid
         rows={rows} columns={columns} 
         disableColumnFilter

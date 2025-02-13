@@ -6,7 +6,7 @@ import Select from "../Select";
 import ButtonLink from "../ButtonLink";
 import Submit from "../Submit";
 import { useEffect, useState } from "react";
-import { getQuestionarioSocioEco, cadastrarAluno, getAluno, getResponsaveisAluno, getRespostasAluno, updateAluno, cadastrarResponsavelAluno } from "../../Services/alunosService";
+import { getQuestionarioSocioEco, adicionaResponsavel, cadastrarRespostaPergunta, cadastrarAluno, getAluno, getResponsaveisAluno, getRespostasAluno, updateAluno, cadastrarResponsavelAluno } from "../../Services/alunosService";
 import { useParams } from "react-router-dom";
 import PopUp from '../../components/PopUp';
 
@@ -21,6 +21,7 @@ function CadAlunoForm() {
         const getQuestoes = async () => {
             try {
                 const data = await getQuestionarioSocioEco();
+                console.log(data)
                 setQuestoeSocEco(data);
             }
             catch (err) {
@@ -51,7 +52,7 @@ function CadAlunoForm() {
             const formattedDate = `${day}/${month}/${year}`;
             // Converte o campo "ativo" para booleano
             const isAtivo = data.ativo === 'true';
-
+            data.necessidades_especiais = data.necessidades_especiais == 'true';
             // Filtra apenas os campos necessários
             const alunoData = {
                 nome: data.nome,
@@ -76,7 +77,6 @@ function CadAlunoForm() {
                 id_aluno: 0
             };
 
-
             let responsavel2 = null;
             if (data.NomeResponsavel2) {
                 responsavel2 = {
@@ -94,11 +94,31 @@ function CadAlunoForm() {
             }
             else {
 
-                const id_novoAluno = await cadastrarAluno(alunoData)
-                await cadastrarResponsavelAluno({ ...responsavel1, id_aluno: id_novoAluno });
+                const resultAluno = await cadastrarAluno(alunoData)
+                console.log("cadastrou aluno" + resultAluno)
+                const id_novoAluno = resultAluno.id
+                console.log("cadastrou aluno" + id_novoAluno)
+
+                const responseResponsavel1 = await cadastrarResponsavelAluno({ ...responsavel1});
+                await adicionaResponsavel(id_novoAluno, responseResponsavel1.id)
+                
+
                 if (responsavel2) {
-                    await cadastrarResponsavelAluno({ ...responsavel2, id_aluno: id_novoAluno });
+                    const responseResponsavel2 = await cadastrarResponsavelAluno({ ...responsavel2});
+                    await adicionaResponsavel(id_novoAluno, responseResponsavel2.id)
                 }
+
+                console.log("cadastrou resposavel")
+                console.log(questoesSocEco.length)
+                for(let i =0; i<questoesSocEco.length; i++){
+                    let pergunta = questoesSocEco[i];
+      
+                    await cadastrarRespostaPergunta({aluno_id:id_novoAluno, pergunta_id: pergunta.id, resposta_texto: data[pergunta.id]})
+                    
+                }
+
+                console.log("cadastrou respostas")
+
                 console.log(alunoData);
             }
             setMensagemPopUp({ titulo: 'Cadastro de Aluno', texto: 'Aluno cadastrado com sucesso!' });
@@ -166,13 +186,18 @@ function CadAlunoForm() {
                 </section>
             </section>
             <section className={style.sectionForm25}>
-                <Input
+
+                <Select
                     label='Necessidades especiais'
                     name='necessidades_especiais'
-                    errors={errors}
-                    validationRules={{ required: 'Campo Obrigatório', minLength: { value: 1, message: 'Campo deve ter pelo menos 1 caracteres' } }}
-                    register={register}
-                />
+                        register={register}
+                        errors={errors}
+                        options={[
+                            { value: 'true', label: 'Sim' },
+                            { value: 'false', label: 'Não' },
+                        ]}
+                        validationRules={{ required: 'Campo Obrigatório' }}
+                    />
                 <Radio
                     label='Situação'
                     name='ativo'
@@ -348,18 +373,18 @@ function CadAlunoForm() {
                 </section>
             </section>
             <h5 className={style.titulo}>Questionário socioeconômico</h5>
-            <section className={style.sectionForm}>
+            <section className={style.SocioEconomico}>
                 {
                     questoesSocEco.map(
-                        (questao) => {
+                        (questao) => (
                             <Input
                                 label={questao.texto}
-                                name={questao.id}
+                                name={String(questao.id)}
                                 errors={errors}
                                 validationRules={{ required: 'Campo Obrigatório' }}
                                 register={register}
                             />
-                        }
+                        )
                     )
                 }
             </section>

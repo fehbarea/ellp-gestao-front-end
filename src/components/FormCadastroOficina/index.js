@@ -223,7 +223,7 @@ function FormCadastroOficina() {
                     label='Lista de Oficinas'
                 />
                 <ButtonLink
-                    to='/'
+                    to='/Home'
                     label='Cancelar'
                 />
             </div>
